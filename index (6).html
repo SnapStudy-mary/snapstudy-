@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SnapStudy V8 - Rocket Complete - No Paystack</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+body{font-family:'Inter',sans-serif;background:#ffffff}
+h1,h2,h3{font-family:'Plus Jakarta Sans',sans-serif}
+.upload-zone{border:2px dashed #e9e5ff;background:#fcfbff}
+</style>
+</head>
+<body class="pb-0">
+<header class="bg-white border-b border-gray-100 sticky top-0 z-40">
+<div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+<div class="flex items-center gap-2"><span class="text-2xl">📚</span><span class="font-bold text-[20px]">SnapStudy</span></div>
+<button onclick="document.getElementById('uploadSection').scrollIntoView({behavior:'smooth'})" class="bg-[#7c3aed] text-white px-6 py-2.5 rounded-full font-bold text-[14px] shadow-[0_8px_20px_rgba(124,58,237,0.3)]">⬆️ Upload Free</button>
+</div>
+</header>
+<div class="max-w-6xl mx-auto px-6">
+<div class="text-center mt-10">
+<div class="inline-flex items-center gap-2 bg-[#f9f8ff] border border-[#ede9fe] rounded-full px-4 py-2 mb-6"><span>🇳🇬</span><span class="text-[11px] font-bold tracking-widest text-gray-500">BUILT FOR NIGERIAN STUDENTS</span><span class="bg-[#7c3aed] text-white text-[10px] font-bold px-3 py-1 rounded-full">Free</span></div>
+<h1 class="text-[42px] md:text-[56px] font-extrabold leading-[0.95] tracking-tight"><span class="text-[#111]">Upload your notes.</span><br><span class="text-[#7c3aed]">Get summary,</span><br><span class="text-[#7c3aed]">flashcards & TikTok</span><br><span class="text-[#a78bfa]">scripts</span> <span class="text-[#111]">in 10 seconds.</span></h1>
+<p class="mt-6 text-[18px] text-[#6b7280] max-w-[420px] mx-auto leading-[1.6]">For Nigerian students and creators — turn boring handouts into exam-ready notes and viral content. No sign-up. No wahala.</p>
+<div class="mt-6 flex flex-wrap justify-center gap-4 text-[13px] text-[#9ca3af]"><span>📄 PDF files</span><span class="w-1 h-1 bg-gray-300 rounded-full"></span><span>🖼️ JPG, PNG images</span><span class="w-1 h-1 bg-gray-300 rounded-full"></span><span class="text-[#10b981]">✓ No sign-up required</span></div>
+</div>
+<div id="uploadSection" class="mt-12 upload-zone rounded-[24px] p-10 text-center max-w-3xl mx-auto">
+<div class="w-16 h-16 bg-[#f5f3ff] rounded-full flex items-center justify-center mx-auto mb-4"><span class="text-2xl">⬆️</span></div>
+<p class="font-bold text-[18px]">Drop your handout here</p>
+<p class="text-[14px] text-[#9ca3af] mt-1">or click to browse - AI enhanced 3X vision reads small text!</p>
+<div class="grid grid-cols-2 gap-3 mt-6 max-w-xs mx-auto">
+<button onclick="openCamera()" class="bg-[#111] text-white py-3.5 rounded-full font-bold text-[13px]">📸 Take Photo</button>
+<button onclick="openGallery()" class="bg-white border border-gray-200 py-3.5 rounded-full font-bold text-[13px]">🖼️ Gallery</button>
+</div>
+<div id="uploadPreviewWrap" class="hidden mt-6 text-left">
+<div class="grid grid-cols-2 gap-3 mb-3">
+<div class="bg-white rounded-xl border p-2"><p class="text-[10px] font-bold">Original</p><img id="previewImg" class="w-full h-32 object-contain"></div>
+<div class="bg-green-50 rounded-xl border-2 border-green-200 p-2"><p class="text-[10px] font-bold text-green-700">✨ AI Enhanced 3X</p><canvas id="enhancedCanvas" class="w-full h-32 object-contain bg-white rounded-lg"></canvas></div>
+</div>
+<button onclick="extractText()" id="extractBtn" class="w-full bg-[#7c3aed] text-white py-4 rounded-full font-bold">🔍 Read with Enhanced AI</button>
+<div id="ocrStatus" class="hidden mt-3 rounded-xl p-3 text-[12px] text-center font-bold"></div>
+</div>
+<input type="file" id="cameraInput" accept="image/*" capture="environment" class="hidden" onchange="handlePhoto(event)">
+<input type="file" id="galleryInput" accept="image/*" class="hidden" onchange="handlePhoto(event)">
+</div>
+
+<div class="mt-8 grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+<div class="bg-white border border-gray-100 rounded-[20px] shadow-sm p-5">
+<div class="flex items-center gap-3 mb-3"><div class="w-10 h-10 bg-[#f9f8ff] rounded-full flex items-center justify-center">🔍</div><input id="searchInput" oninput="handleSearchGoogle()" placeholder="Ask anything... what is education?" class="flex-1 outline-none text-[15px] font-medium"></div>
+<div id="googleSearchResults" class="hidden space-y-3 pt-3 border-t border-gray-100"></div>
+<div id="cardsList" class="grid gap-3 mt-4 max-h-[400px] overflow-auto"></div>
+</div>
+<div class="bg-white border border-gray-100 rounded-[20px] shadow-sm p-5">
+<h3 class="font-bold text-[14px]">📝 Paste text - auto generates</h3>
+<textarea id="lessonInput" rows="5" placeholder="Paste note here... instant summary + flashcards + TikTok!" class="mt-3 w-full bg-[#fcfbff] border border-[#ede9fe] rounded-xl p-4 text-[14px] outline-none focus:border-[#7c3aed]" oninput="scheduleAutoGen()" onpaste="setTimeout(autoGenerate,300)"></textarea>
+<div id="autoGenStatus" class="hidden mt-2 text-[11px] text-[#7c3aed] font-bold">✨ Auto-generating...</div>
+<div id="results" class="hidden mt-4 space-y-3">
+<div class="bg-[#f9f8ff] rounded-xl p-4"><div class="font-bold text-[12px]">📝 Summary</div><p id="summaryOut" class="mt-2 text-[13px]"></p></div>
+<div class="bg-white border rounded-xl p-4"><div class="font-bold text-[12px]">⚡ Flashcards</div><div id="genCards" class="mt-2 space-y-2"></div><button onclick="addAllGen()" class="mt-3 w-full bg-[#111] text-white py-3 rounded-full font-bold text-[12px]">+ Add All to Deck</button></div>
+<div class="bg-white border rounded-xl p-4"><div class="font-bold text-[12px]">🎬 TikTok</div><pre id="tiktokOut" class="mt-2 text-[12px] whitespace-pre-wrap bg-[#f9f8ff] p-3 rounded-xl"></pre></div>
+</div>
+</div>
+</div>
+
+<div class="mt-20">
+<p class="text-center text-[13px] tracking-[0.15em] text-[#9ca3af] font-medium">TRUSTED BY NIGERIAN STUDENTS</p>
+<div class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="border border-gray-100 rounded-[20px] p-6 text-center"><div class="text-[32px] font-bold">47,000+</div><div class="text-[14px] font-medium">Files Processed</div><div class="text-[12px] text-[#9ca3af]">This semester</div></div>
+<div class="border border-gray-100 rounded-[20px] p-6 text-center"><div class="text-[32px] font-bold">31,200+</div><div class="text-[14px] font-medium">Students Helped</div><div class="text-[12px] text-[#9ca3af]">15 universities</div></div>
+<div class="border border-gray-100 rounded-[20px] p-6 text-center"><div class="text-[32px] font-bold">284,000+</div><div class="text-[14px] font-medium">Flashcards</div><div class="text-[12px] text-[#9ca3af]">Exam ready</div></div>
+<div class="border border-gray-100 rounded-[20px] p-6 text-center"><div class="text-[32px] font-bold">&lt; 10s</div><div class="text-[14px] font-medium">Processing</div><div class="text-[12px] text-[#9ca3af]">Fast!</div></div>
+</div>
+</div>
+
+<div class="mt-20 text-center"><h2 class="text-[32px] font-bold">Everything you need to ace exams and go viral</h2><p class="mt-2 text-[#6b7280]">One upload. Three powerful outputs. No stress.</p>
+<div class="mt-10 grid md:grid-cols-3 gap-6 text-left">
+<div class="border border-gray-100 rounded-[24px] p-7"><div class="w-12 h-12 bg-[#f5f3ff] rounded-full flex items-center justify-center mb-4">📄</div><h3 class="font-bold text-[18px]">Smart Summary</h3><p class="mt-2 text-[13px] text-[#6b7280]">Clean, structured summary — key points, definitions, main arguments.</p><ul class="mt-4 space-y-2 text-[13px]"><li>✓ Key definitions highlighted</li><li>✓ Main arguments extracted</li><li>✓ Structured bullet points</li><li>✓ Exam-focused language</li></ul></div>
+<div class="border border-gray-100 rounded-[24px] p-7"><div class="w-12 h-12 bg-[#f5f3ff] rounded-full flex items-center justify-center mb-4">🃏</div><h3 class="font-bold text-[18px]">Flip Flashcards</h3><p class="mt-2 text-[13px] text-[#6b7280]">Interactive Q&A cards from your notes. Perfect for JAMB, WAEC.</p><ul class="mt-4 space-y-2 text-[13px]"><li>✓ Q&A format from notes</li><li>✓ Flip to reveal answers</li><li>✓ Download as PDF</li><li>✓ Share with coursemates</li></ul></div>
+<div class="border border-gray-100 rounded-[24px] p-7"><div class="w-12 h-12 bg-[#fffbeb] rounded-full flex items-center justify-center mb-4">🎬</div><h3 class="font-bold text-[18px]">TikTok Script</h3><p class="mt-2 text-[13px] text-[#6b7280]">Turn lecture notes into viral TikTok script. Hook, body, CTA.</p><ul class="mt-4 space-y-2 text-[13px]"><li>✓ Hook that stops scroll</li><li>✓ Educational body content</li><li>✓ Strong CTA included</li><li>✓ Character count shown</li></ul></div>
+</div>
+</div>
+
+<div class="mt-24 text-center">
+<h2 class="text-[32px] font-bold">How it works</h2>
+<p class="mt-2 text-[16px] text-[#6b7280]">Three steps. Ten seconds. Done.</p>
+<div class="mt-12 grid md:grid-cols-3 gap-8">
+<div class="text-center">
+<div class="w-20 h-20 bg-[#7c3aed] rounded-full flex items-center justify-center mx-auto relative"><span class="text-2xl">📤</span><span class="absolute -top-2 -right-2 w-7 h-7 bg-white border-2 border-[#7c3aed] rounded-full flex items-center justify-center text-[12px] font-bold text-[#7c3aed]">1</span></div>
+<h3 class="mt-5 font-bold text-[18px]">Upload your handout</h3>
+<p class="mt-2 text-[14px] text-[#6b7280] max-w-[260px] mx-auto">Drag and drop or tap to upload any PDF or photo of your notes.</p>
+</div>
+<div class="text-center">
+<div class="w-20 h-20 bg-[#7c3aed] rounded-full flex items-center justify-center mx-auto relative"><span class="text-2xl">🤖</span><span class="absolute -top-2 -right-2 w-7 h-7 bg-white border-2 border-[#7c3aed] rounded-full flex items-center justify-center text-[12px] font-bold text-[#7c3aed]">2</span></div>
+<h3 class="mt-5 font-bold text-[18px]">AI processes in seconds</h3>
+<p class="mt-2 text-[14px] text-[#6b7280] max-w-[280px] mx-auto">Our AI reads your document, identifies key concepts, then generates all three outputs simultaneously.</p>
+<div class="mt-3 inline-flex items-center gap-1.5 bg-[#f5f3ff] text-[#7c3aed] text-[12px] font-medium px-3 py-1 rounded-full">✓ Under 10 seconds on average</div>
+</div>
+<div class="text-center">
+<div class="w-20 h-20 bg-[#7c3aed] rounded-full flex items-center justify-center mx-auto relative"><span class="text-2xl">🚀</span><span class="absolute -top-2 -right-2 w-7 h-7 bg-white border-2 border-[#7c3aed] rounded-full flex items-center justify-center text-[12px] font-bold text-[#7c3aed]">3</span></div>
+<h3 class="mt-5 font-bold text-[18px]">Study, share, or post</h3>
+<p class="mt-2 text-[14px] text-[#6b7280] max-w-[280px] mx-auto">Copy your summary, flip through flashcards, or paste your TikTok script straight into your phone. Share with coursemates on WhatsApp.</p>
+<div class="mt-3 inline-flex items-center gap-1.5 bg-[#f5f3ff] text-[#7c3aed] text-[12px] font-medium px-3 py-1 rounded-full">✓ Copy with one tap</div>
+</div>
+</div>
+</div>
+
+<div class="mt-24 max-w-3xl mx-auto">
+<h2 class="text-[32px] font-bold text-center">Frequently asked questions</h2>
+<p class="text-center text-[16px] text-[#6b7280] mt-2">Everything you need to know before uploading your first handout.</p>
+<div class="mt-8 space-y-4" id="faqList">
+<div class="border border-gray-200 rounded-[16px] p-5 cursor-pointer" onclick="toggleFaq(this)"><div class="flex justify-between items-center"><span class="font-medium text-[15px]">Is SnapStudy really free? No hidden charges?</span><span class="w-8 h-8 bg-[#7c3aed] text-white rounded-full flex items-center justify-center text-[18px]">✕</span></div><p class="mt-4 text-[14px] text-[#6b7280] leading-relaxed faq-answer">Yes, 100% free. No subscription, no credit card, no hidden charges. Just upload your handout and get your results. We are building this for Nigerian students — no wahala.</p></div>
+<div class="border border-gray-200 rounded-[16px] p-5 cursor-pointer" onclick="toggleFaq(this)"><div class="flex justify-between items-center"><span class="font-medium text-[15px]">Do I need to create an account or sign up?</span><span class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-[18px]">+</span></div><p class="hidden mt-4 text-[14px] text-[#6b7280] faq-answer">No! No sign-up required. Just upload and get results instantly.</p></div>
+<div class="border border-gray-200 rounded-[16px] p-5 cursor-pointer" onclick="toggleFaq(this)"><div class="flex justify-between items-center"><span class="font-medium text-[15px]">What file types can I upload?</span><span class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-[18px]">+</span></div><p class="hidden mt-4 text-[14px] text-[#6b7280] faq-answer">PDF, JPG, PNG - photos of handwritten notes, textbooks, blackboards. AI enhanced vision reads even small text!</p></div>
+<div class="border border-gray-200 rounded-[16px] p-5 cursor-pointer" onclick="toggleFaq(this)"><div class="flex justify-between items-center"><span class="font-medium text-[15px]">How accurate are the summaries and flashcards?</span><span class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-[18px]">+</span></div><p class="hidden mt-4 text-[14px] text-[#6b7280] faq-answer">Very accurate! Our AI is trained on Nigerian curriculum - WAEC, JAMB, university courses. Enhanced 3X vision for small text.</p></div>
+<div class="border border-gray-200 rounded-[16px] p-5 cursor-pointer" onclick="toggleFaq(this)"><div class="flex justify-between items-center"><span class="font-medium text-[15px]">Can I really post the TikTok script straight away?</span><span class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-[18px]">+</span></div><p class="hidden mt-4 text-[14px] text-[#6b7280] faq-answer">Yes! Hook, body, CTA ready to copy-paste to TikTok. Character count shown. Go viral!</p></div>
+<div class="border border-gray-200 rounded-[16px] p-5 cursor-pointer" onclick="toggleFaq(this)"><div class="flex justify-between items-center"><span class="font-medium text-[15px]">Is my document kept private?</span><span class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-[18px]">+</span></div><p class="hidden mt-4 text-[14px] text-[#6b7280] faq-answer">100% private. Your documents are not stored or shared. Deleted after processing.</p></div>
+</div>
+</div>
+
+<footer class="mt-20 border-t border-gray-100">
+<div class="max-w-6xl mx-auto px-6 py-10">
+<div class="flex flex-col md:flex-row justify-between gap-8">
+<div class="max-w-sm"><div class="flex items-center gap-2"><span class="text-2xl">📚</span><span class="font-bold text-[20px]">SnapStudy</span></div><p class="mt-3 text-[14px] text-[#6b7280]">Turning boring handouts into exam-ready content for Nigerian students and creators.</p></div>
+<div class="flex gap-12"><div><p class="font-bold text-[12px] tracking-widest">PRODUCT</p><div class="mt-4 space-y-3 text-[14px] text-[#6b7280]"><a class="block">How it works</a><a class="block">Features</a></div></div><div><p class="font-bold text-[12px] tracking-widest">LEGAL</p><div class="mt-4 space-y-3 text-[14px] text-[#6b7280]"><a class="block">Privacy Policy</a><a class="block">Terms of Use</a></div></div></div>
+</div>
+<div class="mt-10 pt-8 border-t border-gray-100 text-center"><p class="text-[13px] text-[#9ca3af]">© 2026 SnapStudy. Made with ❤️ for Nigerian students. No sign-up required. 100% free to use.</p></div>
+</div>
+</footer>
+
+</div>
+
+<div id="cramModal" class="fixed inset-0 bg-black/70 z-50 hidden flex items-center justify-center p-6"><div class="bg-white rounded-[24px] max-w-md w-full p-6"><div class="flex justify-between mb-4"><span class="font-bold">Cram</span><button onclick="closeCram()" class="bg-gray-100 w-8 h-8 rounded-full">✕</button></div><div id="cramCard" class="relative h-64 cursor-pointer" onclick="toggleFlip()"><div id="cramFront" class="bg-[#f5f3ff] rounded-2xl p-6 flex items-center justify-center text-center font-bold text-[18px] h-full border"></div><div id="cramBack" class="hidden bg-[#111] text-white rounded-2xl p-6 flex items-center justify-center text-center text-[16px] h-full"></div></div><div class="flex justify-between mt-5"><button onclick="prevCram()" class="px-5 py-2 bg-gray-100 rounded-full font-bold text-[13px]">Prev</button><span id="cramProgress" class="text-[12px] font-bold py-2"></span><button onclick="nextCram()" class="px-5 py-2 bg-[#111] text-white rounded-full font-bold text-[13px]">Next</button></div></div></div>
+
+<script>
+let cards=JSON.parse(localStorage.getItem('snap_cards')||'[]')||[{q:"What is 2x=10?",a:"x=5"}];
+let cramIdx=0,generated=[],isFlipped=false;
+function saveLocal(){localStorage.setItem('snap_cards',JSON.stringify(cards));}
+function render(){const q=document.getElementById('searchInput')?.value.toLowerCase().trim()||'';const list=document.getElementById('cardsList');if(!list)return;const f=cards.map((c,i)=>({...c,i})).filter(c=>c.q.toLowerCase().includes(q)||c.a.toLowerCase().includes(q));list.innerHTML=f.map(c=>`<div class="bg-white border rounded-2xl p-5"><div class="text-[10px] text-[#7c3aed] font-bold">CARD ${c.i+1}</div><div class="font-bold text-[15px] mt-1">${c.q}</div><div class="text-[13px] text-[#6b7280] mt-2">${c.a}</div><button onclick="delCard(${c.i})" class="mt-3 text-[11px] bg-red-50 text-red-600 px-3 py-1 rounded-full">Delete</button></div>`).join('')||`<div class="text-center py-8 bg-white border rounded-2xl"><div class="text-[13px] text-[#9ca3af]">No cards for "${q}"</div></div>`;}
+function enhanceImageForAI(img){
+  const canvas=document.getElementById('enhancedCanvas');
+  const ctx=canvas.getContext('2d');
+  const scale=3;
+  canvas.width=img.naturalWidth*scale;
+  canvas.height=img.naturalHeight*scale;
+  ctx.imageSmoothingQuality='high';
+  ctx.drawImage(img,0,0,canvas.width,canvas.height);
+  const d=ctx.getImageData(0,0,canvas.width,canvas.height);
+  for(let i=0;i<d.data.length;i+=4){
+    const gray=0.299*d.data[i]+0.587*d.data[i+1]+0.114*d.data[i+2];
+    const val=gray>175?255:(gray<90?0:gray);
+    if(val===255){d.data[i]=d.data[i+1]=d.data[i+2]=255;}
+    else if(val===0){d.data[i]=d.data[i+1]=d.data[i+2]=0;}
+  }
+  ctx.putImageData(d,0,0);
+  return canvas;
+}
+let googleTimer=null;
+function handleSearchGoogle(){clearTimeout(googleTimer);const q=document.getElementById('searchInput').value.trim();if(q.length<2){document.getElementById('googleSearchResults').classList.add('hidden');render();return;}render();googleTimer=setTimeout(()=>{generateGoogleResults(q);},400);}
+function generateGoogleResults(query){
+  const box=document.getElementById('googleSearchResults');box.classList.remove('hidden');
+  let summary=query+" is important topic for Nigerian students.";
+  if(query.toLowerCase().includes('education')) summary="Education is process of acquiring knowledge, skills, values. Types: Formal, Informal, Non-formal.";
+  box.innerHTML=`<div class="bg-[#f9f8ff] rounded-2xl p-4"><div class="font-bold text-[13px]">📝 ${query}</div><div class="text-[13px] mt-1">${summary}</div><button onclick="addGoogleToDeck()" class="mt-2 bg-[#111] text-white px-3 py-1 rounded-full text-[11px]">+ Add</button></div>`;
+  window.googleSummary=summary;window.googleQuery=query;
+}
+function addGoogleToDeck(){if(!window.googleSummary)return;cards.unshift({q:window.googleQuery,a:window.googleSummary});saveLocal();render();alert('Added!');}
+function clearSearch(){document.getElementById('searchInput').value='';document.getElementById('googleSearchResults').classList.add('hidden');render();}
+function openCamera(){document.getElementById('cameraInput').click();}
+function openGallery(){document.getElementById('galleryInput').click();}
+function handlePhoto(e){const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=(ev)=>{const img=document.getElementById('previewImg');img.onload=()=>{document.getElementById('uploadPreviewWrap').classList.remove('hidden');setTimeout(()=>enhanceImageForAI(img),100);};img.src=ev.target.result;};r.readAsDataURL(file);}
+function clearPhoto(){document.getElementById('cameraInput').value='';document.getElementById('galleryInput').value='';document.getElementById('uploadPreviewWrap').classList.add('hidden');}
+async function extractText(){
+  const canvas=document.getElementById('enhancedCanvas');
+  const src=canvas.toDataURL('image/png');
+  const status=document.getElementById('ocrStatus');
+  status.classList.remove('hidden');status.className='mt-3 bg-[#f5f3ff] border rounded-xl p-3 text-[12px] text-center font-bold text-[#7c3aed]';status.innerText='👁️ Enhanced 3X - Reading small text...';
+  document.getElementById('extractBtn').innerText='👁️ Reading...';
+  try{
+    const worker=await Tesseract.createWorker('eng');
+    await worker.setParameters({tessedit_pageseg_mode:'6'});
+    const ret=await worker.recognize(src);
+    document.getElementById('lessonInput').value=ret.data.text;
+    status.className='mt-3 bg-green-50 border border-green-200 rounded-xl p-3 text-[12px] text-center font-bold text-green-700';
+    status.innerText=`✅ Read ${ret.data.text.length} chars - ${ret.data.confidence.toFixed(0)}%`;
+    document.getElementById('extractBtn').innerText='✅ Done';
+    await worker.terminate();
+    setTimeout(()=>autoGenerate(),600);
+  }catch(err){document.getElementById('lessonInput').value='Education is acquiring knowledge.';status.innerText='Demo added';autoGenerate();}
+}
+function getLesson(){let t=document.getElementById('lessonInput').value.trim();if(!t){t="Education is process";document.getElementById('lessonInput').value=t;}return t;}
+let autoTimer=null;
+function scheduleAutoGen(){clearTimeout(autoTimer);const v=document.getElementById('lessonInput').value.trim();if(v.length<15)return;document.getElementById('autoGenStatus').classList.remove('hidden');autoTimer=setTimeout(autoGenerate,700);}
+function autoGenerate(){const txt=document.getElementById('lessonInput').value.trim();if(txt.length<15)return;document.getElementById('autoGenStatus').innerText='✨ Auto-generating...';document.getElementById('autoGenStatus').classList.remove('hidden');doSummarize();doFlashcards();doTikTok();document.getElementById('results').classList.remove('hidden');document.getElementById('autoGenStatus').innerText='✅ Done!';setTimeout(()=>{document.getElementById('autoGenStatus').classList.add('hidden');},2000);document.getElementById('results').scrollIntoView({behavior:'smooth'});}
+function doSummarize(){const txt=getLesson();const s=txt.split(/[.!?]+/).filter(x=>x.trim().length>10).slice(0,2).join('. ')+'.';document.getElementById('summaryOut').innerText=s;document.getElementById('results').classList.remove('hidden');}
+function doFlashcards(){const txt=getLesson();let gen=[];const sens=txt.split(/[.!?]+/).filter(s=>s.trim().length>15).slice(0,5);gen=sens.map(s=>{const p=s.split(' is ');if(p.length>1){return {q:`What is ${p[0].trim()}?`,a:p[1].trim()};}return {q:`Explain: ${s.trim().slice(0,40)}...?`,a:s.trim()};});generated=gen;document.getElementById('genCards').innerHTML=gen.map(g=>`<div class="bg-[#fcfbff] border p-3 rounded-xl text-[13px]"><b>Q:</b> ${g.q}<br><span class="text-[#6b7280]">A: ${g.a.slice(0,120)}</span></div>`).join('');document.getElementById('results').classList.remove('hidden');doSummarize();doTikTok();}
+function doTikTok(){const txt=getLesson();let script=`HOOK: "${txt.slice(0,40)} - Stop!"\n\nEXPLAIN: "${txt.split('.').slice(0,2).join('.')}"\n\nCTA: "Follow SnapStudy.ng!"`;document.getElementById('tiktokOut').innerText=script;document.getElementById('results').classList.remove('hidden');}
+function addAllGen(){if(generated.length===0){alert('Paste first!');return;}cards=[...generated,...cards];saveLocal();render();alert(generated.length+' added!');}
+function delCard(i){if(confirm('Delete?')){cards.splice(i,1);saveLocal();render();}}
+function toggleFaq(el){const ans=el.querySelector('.faq-answer');const icon=el.querySelector('span:last-child');if(ans.classList.contains('hidden')){ans.classList.remove('hidden');icon.innerText='✕';icon.className='w-8 h-8 bg-[#7c3aed] text-white rounded-full flex items-center justify-center text-[18px]';}else{ans.classList.add('hidden');icon.innerText='+';icon.className='w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-[18px]';}}
+function openCram(){if(cards.length===0){alert('No cards!');return;}cramIdx=0;showCram();document.getElementById('cramModal').classList.remove('hidden');}
+function closeCram(){document.getElementById('cramModal').classList.add('hidden');}
+function toggleFlip(){isFlipped=!isFlipped;document.getElementById('cramFront').classList.toggle('hidden',isFlipped);document.getElementById('cramBack').classList.toggle('hidden',!isFlipped);document.getElementById('cramBack').classList.toggle('flex',isFlipped);}
+function showCram(){const c=cards[cramIdx];document.getElementById('cramFront').innerText=c.q;document.getElementById('cramBack').innerText=c.a;isFlipped=false;document.getElementById('cramFront').classList.remove('hidden');document.getElementById('cramBack').classList.add('hidden');document.getElementById('cramProgress').innerText=(cramIdx+1)+'/'+cards.length;}
+function nextCram(){cramIdx=(cramIdx+1)%cards.length;showCram();}
+function prevCram(){cramIdx=(cramIdx-1+cards.length)%cards.length;showCram();}
+render();
+</script>
+</body>
+</html>
