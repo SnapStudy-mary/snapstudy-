@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SnapStudy.ng - Own your code</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body style="background:#f8f5ff;font-family:sans-serif;min-height:100vh">
+<header style="background:white;padding:12px;border-bottom:1px solid #eee;display:flex;justify-content:space-between">
+<div><b style="background:#7c3aed;color:white;padding:6px 10px;border-radius:8px">S</b> <b>SnapStudy</b> <span style="font-size:10px;background:#ede9fe;color:#7c3aed;padding:4px 8px;border-radius:20px">BY MARYVIN2018</span></div>
+<div style="font-size:12px;color:gray">snapstudy.ng</div>
+</header>
+<div style="max-width:900px;margin:20px auto;padding:0 16px">
+<div style="background:linear-gradient(135deg,#7c3aed,#4f46e5);border-radius:24px;padding:24px;color:white">
+<h1 style="font-size:32px;font-weight:800;line-height:1.1">Own your code.<br>Ace your exams.</h1>
+<p style="margin-top:8px;color:#ddd6fe">For Nigerian students. Flashcards, cram mode, offline ready.</p>
+</div>
+<div style="background:white;border-radius:16px;padding:16px;margin-top:16px;border:1px solid #eee">
+<h2 style="font-weight:bold">Create new flashcard</h2>
+<div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+<input id="q" placeholder="Question: What is 2x=10?" style="border:1px solid #ddd;border-radius:12px;padding:12px;flex:1">
+<input id="a" placeholder="Answer: x=5" style="border:1px solid #ddd;border-radius:12px;padding:12px;flex:1">
+</div>
+<button onclick="addCard()" style="margin-top:12px;width:100%;background:#7c3aed;color:white;padding:12px;border-radius:12px;font-weight:bold;border:none">Save Card → GitHub Repo Safe</button>
+</div>
+<div id="grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:16px"></div>
+<div style="background:white;border-radius:16px;padding:16px;margin-top:24px;border:1px solid #eee">
+<b>3. Deploy:</b> Go to vercel.com → Add New Project → Import snapstudy → Deploy → Live in 30s!<br>
+<b>4. Domain:</b> In Vercel → Settings → Domains → Add snapstudy.ng<br><br>
+<a href="https://vercel.com/new" target="_blank" style="background:#7c3aed;color:white;padding:10px 16px;border-radius:20px;text-decoration:none">Deploy on Vercel</a>
+</div>
+</div>
+<script>
+let cards=JSON.parse(localStorage.getItem('snapstudy_cards')||'[{"q":"What is 2x = 10?","a":"x = 5"},{"q":"Who wrote Things Fall Apart?","a":"Chinua Achebe"}]');
+function render(){document.getElementById('grid').innerHTML=cards.map((c,i)=>`<div style="background:white;border-radius:16px;padding:16px;border:1px solid #eee"><div style="font-size:10px;color:#7c3aed;font-weight:bold">CARD ${i+1}</div><div style="font-weight:bold;margin-top:4px">${c.q}</div><div style="font-size:14px;color:gray;margin-top:4px">${c.a}</div></div>`).join('');localStorage.setItem('snapstudy_cards',JSON.stringify(cards))}
+function addCard(){const q=document.getElementById('q').value.trim();const a=document.getElementById('a').value.trim();if(!q||!a)return alert('Enter question and answer');cards.unshift({q,a});document.getElementById('q').value='';document.getElementById('a').value='';render()}
+render();
+</script>
+</body>
+</html>
