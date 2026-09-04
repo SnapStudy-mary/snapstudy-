@@ -1,0 +1,529 @@
+From: <Saved by Blink>
+Snapshot-Content-Location: https://cdn.fbsbx.com/v/t65.102178-21/797357361_1876451909993300_7648671252203857425_n.jpg/SNAPSTUDY_V3_PHOTO_FINAL.html?_nc_ht=cdn.fbsbx.com&_nc_ohc=wjU9jofZrDEQ7kNvwEBnfA1&sdl=0&ccb=14-4&oh=00_AQJ0ytrfP3WRTmjVB_Vq4wcpsR9Hv4tQlydY_Tfcx27rgg&oe=6A9CB99D&_nc_sid=4ee932
+Subject: SnapStudy V3 - Photo to Flashcards | By Mary
+Date: Fri, 4 Sep 2026 17:24:42 +0100
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----MultipartBoundary--TjuRbsG4VKIBGzNlMvgEDLWBj1Koks222aqvDBopjf----"
+
+
+------MultipartBoundary--TjuRbsG4VKIBGzNlMvgEDLWBj1Koks222aqvDBopjf----
+Content-Type: text/html
+Content-ID: <frame-98BED1F87D5F4CDB577B44D7B4C716DA@mhtml.blink>
+Content-Transfer-Encoding: binary
+Content-Location: https://cdn.fbsbx.com/v/t65.102178-21/797357361_1876451909993300_7648671252203857425_n.jpg/SNAPSTUDY_V3_PHOTO_FINAL.html?_nc_ht=cdn.fbsbx.com&_nc_ohc=wjU9jofZrDEQ7kNvwEBnfA1&sdl=0&ccb=14-4&oh=00_AQJ0ytrfP3WRTmjVB_Vq4wcpsR9Hv4tQlydY_Tfcx27rgg&oe=6A9CB99D&_nc_sid=4ee932
+
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="cid:css-cecf25ce-f843-4e5a-8b14-4ec1ed5f284d@mhtml.blink" /><link rel="stylesheet" type="text/css" href="cid:css-e6652090-2548-423f-b553-e748f3dc222e@mhtml.blink" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SnapStudy V3 - Photo to Flashcards | By Mary</title>
+
+
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+
+</head>
+<body class="pb-24">
+<header class="bg-white border-b sticky top-0 z-30">
+<div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
+<div class="flex items-center gap-2">
+<div class="w-10 h-10 bg-[#7c3aed] rounded-xl flex items-center justify-center text-white font-black">S</div>
+<div class="leading-none"><div class="font-extrabold">SnapStudy <span class="bg-[#ede9fe] text-[#7c3aed] text-[10px] px-2 py-1 rounded-full">V3 PHOTO</span></div><div class="text-[10px] text-gray-500">BY MARYVIN2018</div></div>
+</div>
+<div class="flex gap-2">
+<span id="modeBadge" class="text-[10px] px-2 py-1 rounded-full bg-green-100 text-green-700 font-bold hidden md:block">ADMIN</span>
+<button id="modeBtn" class="text-[11px] bg-gray-900 text-white px-3 py-2 rounded-full font-bold">Student View</button>
+</div>
+</div>
+</header>
+
+<div class="max-w-5xl mx-auto px-4 mt-4 space-y-4">
+<!-- HERO -->
+<div class="bg-gradient-to-br from-[#7c3aed] to-[#4f46e5] rounded-[28px] p-6 text-white">
+<h1 class="text-[28px] font-extrabold leading-[1.1]">Snap Photo → Ace Exam.</h1>
+<p class="mt-2 text-white/80 text-[13px]">For Nigerian students. Take photo of notebook, textbook, or blackboard → Get flashcards instantly. No typing!</p>
+<div class="mt-3 flex gap-2"><span class="bg-white/20 px-3 py-1 rounded-full text-[10px]">📸 Photo to Text</span><span class="bg-white/20 px-3 py-1 rounded-full text-[10px]">⚡ Auto Flashcards</span><span class="bg-white/20 px-3 py-1 rounded-full text-[10px]">🎬 TikTok Script</span></div>
+</div>
+
+<!-- SEARCH -->
+<div class="bg-white rounded-2xl p-3 border shadow-sm flex items-center gap-2">
+<span>🔍</span>
+<input id="searchInput" placeholder="Search flashcards... e.g. Photosynthesis, 2x, Achebe" class="flex-1 outline-none text-[14px]">
+<button class="text-[11px] text-gray-400">Clear</button>
+</div>
+
+<!-- TABS -->
+<div class="flex gap-2">
+<button id="tabAI" class="flex-1 bg-[#7c3aed] text-white py-3 rounded-2xl font-bold text-[13px]">📸 AI Studio</button>
+<button id="tabDeck" class="flex-1 bg-white border py-3 rounded-2xl font-bold text-[13px]">📚 Deck (<span id="deckCount">2</span>)</button>
+</div>
+
+<!-- AI STUDIO -->
+<div id="aiPanel" class="space-y-4">
+<!-- PHOTO UPLOAD - NEW! -->
+<div class="bg-white rounded-[20px] p-5 border shadow-sm">
+<h2 class="font-extrabold text-[16px] mb-1">📸 Step 1: Snap or Upload Note Photo</h2>
+<p class="text-[12px] text-gray-500 mb-3">Take photo of your handwritten note, textbook page, or blackboard. No need to type!</p>
+
+<div id="uploadArea" class="upload-area rounded-2xl p-6 text-center cursor-pointer">
+<div id="uploadPlaceholder">
+<div class="text-4xl mb-2">📷</div>
+<p class="font-bold text-[14px] text-[#7c3aed]">Tap to Take Photo or Upload</p>
+<p class="text-[11px] text-gray-500 mt-1">Supports JPG, PNG - Your notebook, textbook</p>
+<button class="mt-3 bg-[#7c3aed] text-white px-5 py-2 rounded-full text-[12px] font-bold">Open Camera / Gallery</button>
+</div>
+<img id="previewImg" class="hidden w-full max-h-64 object-contain rounded-xl mx-auto">
+</div>
+<input type="file" id="photoInput" accept="image/*" capture="environment" class="hidden">
+
+<div id="photoActions" class="hidden mt-3 grid grid-cols-2 gap-2">
+<button id="extractBtn" class="bg-black text-white py-3 rounded-xl font-bold text-[13px]">🔍 Extract Text from Photo</button>
+<button class="bg-gray-100 py-3 rounded-xl font-bold text-[13px]">🗑️ Remove Photo</button>
+</div>
+
+<div id="ocrStatus" class="hidden mt-3 bg-amber-50 border border-amber-200 rounded-xl p-3 text-[12px] text-center">⏳ Reading your photo... 0%</div>
+
+</div>
+
+<!-- TEXT AREA -->
+<div class="bg-white rounded-[20px] p-5 border shadow-sm">
+<h2 class="font-extrabold text-[16px] mb-2">📝 Step 2: Edit Text (or Paste Directly)</h2>
+<textarea id="lessonInput" rows="4" placeholder="After photo extraction, text will appear here... Or paste directly:
+
+Example: Photosynthesis is how plants make food using sunlight. It happens in chloroplast. Needs sunlight, water, CO2..." class="w-full border rounded-xl p-3 text-[13px] outline-none focus:border-[#7c3aed]"></textarea>
+<div class="grid grid-cols-3 gap-2 mt-3">
+<button class="bg-gray-900 text-white py-3 rounded-xl font-bold text-[12px]">📝 Summary</button>
+<button class="bg-[#7c3aed] text-white py-3 rounded-xl font-bold text-[12px]">⚡ Flashcards</button>
+<button class="bg-black text-white py-3 rounded-xl font-bold text-[12px]">🎬 TikTok</button>
+</div>
+<p class="text-[10px] text-gray-400 mt-2">Tip: For photo, first extract text, then click Flashcards!</p>
+</div>
+
+<!-- RESULTS -->
+<div id="results" class="hidden grid md:grid-cols-3 gap-3">
+<div class="bg-white rounded-2xl p-4 border"><h3 class="font-bold text-[13px] mb-2">📝 Summary</h3><p id="summaryOut" class="text-[12px] text-gray-700"></p><button class="mt-2 text-[10px] bg-gray-100 px-2 py-1 rounded-full">Copy</button></div>
+<div class="bg-white rounded-2xl p-4 border"><h3 class="font-bold text-[13px] mb-2">⚡ Flashcards</h3><div id="genCards" class="space-y-2 max-h-60 overflow-auto"></div><button class="mt-2 w-full bg-[#7c3aed] text-white py-2 rounded-xl text-[11px] font-bold">+ Add All to Deck</button></div>
+<div class="bg-white rounded-2xl p-4 border"><h3 class="font-bold text-[13px] mb-2">🎬 TikTok Script</h3><p id="tiktokOut" class="text-[11px] whitespace-pre-line"></p><button class="mt-2 text-[10px] bg-gray-100 px-2 py-1 rounded-full">Copy</button></div>
+</div>
+
+<!-- MANUAL -->
+<div id="manualCreate" class="bg-white rounded-[20px] p-5 border">
+<h2 class="font-bold text-[14px] mb-2">Manual Create (Admin)</h2>
+<input id="qInput" placeholder="Question: What is 2x=10?" class="w-full border rounded-xl p-3 mb-2 text-[13px]">
+<input id="aInput" placeholder="Answer: x=5" class="w-full border rounded-xl p-3 mb-2 text-[13px]">
+<button class="w-full bg-[#7c3aed] text-white py-3 rounded-xl font-bold text-[13px]">Save Card → Deck</button>
+</div>
+</div>
+
+<!-- DECK -->
+<div id="deckPanel" class="hidden space-y-3">
+<div class="flex justify-between items-center"><h2 class="font-bold">Study Deck</h2><button class="bg-black text-white px-4 py-2 rounded-full text-[11px] font-bold">🎯 Cram Mode</button></div>
+<div id="cardsList" class="grid gap-3"><div class="bg-white rounded-2xl p-4 border"><div class="text-[10px] text-[#7c3aed] font-bold">CARD 1</div><div class="font-bold text-[15px]">What is 2x = 10?</div><div class="text-[13px] text-gray-600 mt-1">x = 5</div><button class="mt-2 text-[10px] bg-red-50 text-red-600 px-2 py-1 rounded-full">Delete</button></div><div class="bg-white rounded-2xl p-4 border"><div class="text-[10px] text-[#7c3aed] font-bold">CARD 2</div><div class="font-bold text-[15px]">Who wrote Things Fall Apart?</div><div class="text-[13px] text-gray-600 mt-1">Chinua Achebe</div><button class="mt-2 text-[10px] bg-red-50 text-red-600 px-2 py-1 rounded-full">Delete</button></div></div>
+</div>
+
+<div id="studentBanner" class="hidden bg-amber-100 border rounded-2xl p-4 text-center text-[12px]"><b>👩‍🎓 Student View:</b> Search &amp; Study only. Only Mary can create.</div>
+</div>
+
+<!-- CRAM -->
+<div id="cramModal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-6">
+<div class="bg-white rounded-[24px] max-w-md w-full p-6">
+<div class="flex justify-between mb-4"><span class="font-bold">Cram</span><button class="bg-gray-100 w-8 h-8 rounded-full">✕</button></div>
+<div id="cramCard" class="flip-card relative h-56 cursor-pointer"><div class="flip-inner relative w-full h-full"><div class="flip-front bg-[#ede9fe] rounded-2xl p-6 flex items-center justify-center text-center font-bold" id="cramFront"></div><div class="flip-back bg-[#7c3aed] text-white rounded-2xl p-6 flex items-center justify-center text-center" id="cramBack"></div></div></div>
+<div class="flex justify-between mt-4"><button class="px-4 py-2 bg-gray-100 rounded-full text-[11px]">Prev</button><span id="cramProgress" class="text-[11px] py-2"></span><button class="px-4 py-2 bg-black text-white rounded-full text-[11px]">Next</button></div>
+</div>
+</div>
+
+
+
+
+</body></html>
+------MultipartBoundary--TjuRbsG4VKIBGzNlMvgEDLWBj1Koks222aqvDBopjf----
+Content-Type: text/css
+Content-Transfer-Encoding: binary
+Content-Location: https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=Inter:wght@400;500;600&display=swap
+
+@charset "utf-8";
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 400; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+460-52F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 400; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+301, U+400-45F, U+490-491, U+4B0-4B1, U+2116; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 400; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2ZL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+1F00-1FFF; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 400; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1pL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+370-377, U+37A-37F, U+384-38A, U+38C, U+38E-3A1, U+3A3-3FF; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 400; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2pL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+102-103, U+110-111, U+128-129, U+168-169, U+1A0-1A1, U+1AF-1B0, U+300-301, U+303-304, U+308-309, U+323, U+329, U+1EA0-1EF9, U+20AB; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 400; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa25L7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+100-2BA, U+2BD-2C5, U+2C7-2CC, U+2CE-2D7, U+2DD-2FF, U+304, U+308, U+329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 400; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2") format("woff2"); unicode-range: U+0-FF, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+304, U+308, U+329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 500; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+460-52F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 500; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+301, U+400-45F, U+490-491, U+4B0-4B1, U+2116; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 500; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2ZL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+1F00-1FFF; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 500; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1pL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+370-377, U+37A-37F, U+384-38A, U+38C, U+38E-3A1, U+3A3-3FF; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 500; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2pL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+102-103, U+110-111, U+128-129, U+168-169, U+1A0-1A1, U+1AF-1B0, U+300-301, U+303-304, U+308-309, U+323, U+329, U+1EA0-1EF9, U+20AB; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 500; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa25L7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+100-2BA, U+2BD-2C5, U+2C7-2CC, U+2CE-2D7, U+2DD-2FF, U+304, U+308, U+329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 500; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2") format("woff2"); unicode-range: U+0-FF, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+304, U+308, U+329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 600; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+460-52F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 600; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+301, U+400-45F, U+490-491, U+4B0-4B1, U+2116; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 600; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2ZL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+1F00-1FFF; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 600; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1pL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+370-377, U+37A-37F, U+384-38A, U+38C, U+38E-3A1, U+3A3-3FF; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 600; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2pL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+102-103, U+110-111, U+128-129, U+168-169, U+1A0-1A1, U+1AF-1B0, U+300-301, U+303-304, U+308-309, U+323, U+329, U+1EA0-1EF9, U+20AB; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 600; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa25L7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+100-2BA, U+2BD-2C5, U+2C7-2CC, U+2CE-2D7, U+2DD-2FF, U+304, U+308, U+329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 600; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2") format("woff2"); unicode-range: U+0-FF, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+304, U+308, U+329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+@font-face { font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 700; font-display: swap; src: url("https://fonts.gstatic.com/s/plusjakartasans/v12/LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko70yygg_vbd-E.woff2") format("woff2"); unicode-range: U+460-52F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
+
+@font-face { font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 700; font-display: swap; src: url("https://fonts.gstatic.com/s/plusjakartasans/v12/LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko50yygg_vbd-E.woff2") format("woff2"); unicode-range: U+102-103, U+110-111, U+128-129, U+168-169, U+1A0-1A1, U+1AF-1B0, U+300-301, U+303-304, U+308-309, U+323, U+329, U+1EA0-1EF9, U+20AB; }
+
+@font-face { font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 700; font-display: swap; src: url("https://fonts.gstatic.com/s/plusjakartasans/v12/LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko40yygg_vbd-E.woff2") format("woff2"); unicode-range: U+100-2BA, U+2BD-2C5, U+2C7-2CC, U+2CE-2D7, U+2DD-2FF, U+304, U+308, U+329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+@font-face { font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 700; font-display: swap; src: url("https://fonts.gstatic.com/s/plusjakartasans/v12/LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yygg_vb.woff2") format("woff2"); unicode-range: U+0-FF, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+304, U+308, U+329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+@font-face { font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 800; font-display: swap; src: url("https://fonts.gstatic.com/s/plusjakartasans/v12/LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko70yygg_vbd-E.woff2") format("woff2"); unicode-range: U+460-52F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
+
+@font-face { font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 800; font-display: swap; src: url("https://fonts.gstatic.com/s/plusjakartasans/v12/LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko50yygg_vbd-E.woff2") format("woff2"); unicode-range: U+102-103, U+110-111, U+128-129, U+168-169, U+1A0-1A1, U+1AF-1B0, U+300-301, U+303-304, U+308-309, U+323, U+329, U+1EA0-1EF9, U+20AB; }
+
+@font-face { font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 800; font-display: swap; src: url("https://fonts.gstatic.com/s/plusjakartasans/v12/LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko40yygg_vbd-E.woff2") format("woff2"); unicode-range: U+100-2BA, U+2BD-2C5, U+2C7-2CC, U+2CE-2D7, U+2DD-2FF, U+304, U+308, U+329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+@font-face { font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 800; font-display: swap; src: url("https://fonts.gstatic.com/s/plusjakartasans/v12/LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yygg_vb.woff2") format("woff2"); unicode-range: U+0-FF, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+304, U+308, U+329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+------MultipartBoundary--TjuRbsG4VKIBGzNlMvgEDLWBj1Koks222aqvDBopjf----
+Content-Type: text/css
+Content-Transfer-Encoding: binary
+Content-Location: cid:css-e6652090-2548-423f-b553-e748f3dc222e@mhtml.blink
+
+@charset "utf-8";
+
+*, ::before, ::after { --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; }
+
+::backdrop { --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; }
+
+*, ::after, ::before { box-sizing: border-box; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235); }
+
+::after, ::before { --tw-content: ''; }
+
+:host, html { line-height: 1.5; text-size-adjust: 100%; tab-size: 4; font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; font-feature-settings: normal; font-variation-settings: normal; -webkit-tap-highlight-color: transparent; }
+
+body { margin: 0px; line-height: inherit; }
+
+hr { height: 0px; color: inherit; border-top-width: 1px; }
+
+abbr:where([title]) { text-decoration: underline dotted; }
+
+h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
+
+a { color: inherit; text-decoration: inherit; }
+
+b, strong { font-weight: bolder; }
+
+code, kbd, pre, samp { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-feature-settings: normal; font-variation-settings: normal; font-size: 1em; }
+
+small { font-size: 80%; }
+
+sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; }
+
+sub { bottom: -0.25em; }
+
+sup { top: -0.5em; }
+
+table { text-indent: 0px; border-color: inherit; border-collapse: collapse; }
+
+button, input, optgroup, select, textarea { font-family: inherit; font-feature-settings: inherit; font-variation-settings: inherit; font-size: 100%; font-weight: inherit; line-height: inherit; letter-spacing: inherit; color: inherit; margin: 0px; padding: 0px; }
+
+button, select { text-transform: none; }
+
+button, input:where([type="button"]), input:where([type="reset"]), input:where([type="submit"]) { appearance: button; background-color: transparent; background-image: none; }
+
+progress { vertical-align: baseline; }
+
+::-webkit-inner-spin-button, ::-webkit-outer-spin-button { height: auto; }
+
+[type="search"] { appearance: textfield; outline-offset: -2px; }
+
+::-webkit-search-decoration { appearance: none; }
+
+::-webkit-file-upload-button { appearance: button; font: inherit; }
+
+summary { display: list-item; }
+
+blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre { margin: 0px; }
+
+fieldset { margin: 0px; padding: 0px; }
+
+legend { padding: 0px; }
+
+menu, ol, ul { list-style: none; margin: 0px; padding: 0px; }
+
+dialog { padding: 0px; }
+
+textarea { resize: vertical; }
+
+input::placeholder, textarea::placeholder { opacity: 1; color: rgb(156, 163, 175); }
+
+[role="button"], button { cursor: pointer; }
+
+:disabled { cursor: default; }
+
+audio, canvas, embed, iframe, img, object, svg, video { display: block; vertical-align: middle; }
+
+img, video { max-width: 100%; height: auto; }
+
+[hidden]:where(:not([hidden="until-found"])) { display: none; }
+
+.fixed { position: fixed; }
+
+.relative { position: relative; }
+
+.sticky { position: sticky; }
+
+.inset-0 { inset: 0px; }
+
+.top-0 { top: 0px; }
+
+.z-30 { z-index: 30; }
+
+.z-50 { z-index: 50; }
+
+.mx-auto { margin-left: auto; margin-right: auto; }
+
+.mb-1 { margin-bottom: 0.25rem; }
+
+.mb-2 { margin-bottom: 0.5rem; }
+
+.mb-3 { margin-bottom: 0.75rem; }
+
+.mb-4 { margin-bottom: 1rem; }
+
+.mt-1 { margin-top: 0.25rem; }
+
+.mt-2 { margin-top: 0.5rem; }
+
+.mt-3 { margin-top: 0.75rem; }
+
+.mt-4 { margin-top: 1rem; }
+
+.flex { display: flex; }
+
+.grid { display: grid; }
+
+.hidden { display: none; }
+
+.h-10 { height: 2.5rem; }
+
+.h-56 { height: 14rem; }
+
+.h-8 { height: 2rem; }
+
+.h-full { height: 100%; }
+
+.max-h-60 { max-height: 15rem; }
+
+.max-h-64 { max-height: 16rem; }
+
+.w-10 { width: 2.5rem; }
+
+.w-8 { width: 2rem; }
+
+.w-full { width: 100%; }
+
+.max-w-5xl { max-width: 64rem; }
+
+.max-w-md { max-width: 28rem; }
+
+.flex-1 { flex: 1 1 0%; }
+
+.cursor-pointer { cursor: pointer; }
+
+.grid-cols-2 { grid-template-columns: repeat(2, minmax(0px, 1fr)); }
+
+.grid-cols-3 { grid-template-columns: repeat(3, minmax(0px, 1fr)); }
+
+.items-center { align-items: center; }
+
+.justify-center { justify-content: center; }
+
+.justify-between { justify-content: space-between; }
+
+.gap-2 { gap: 0.5rem; }
+
+.gap-3 { gap: 0.75rem; }
+
+.space-y-2 > :not([hidden]) ~ :not([hidden]) { --tw-space-y-reverse: 0; margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse))); margin-bottom: calc(0.5rem * var(--tw-space-y-reverse)); }
+
+.space-y-3 > :not([hidden]) ~ :not([hidden]) { --tw-space-y-reverse: 0; margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse))); margin-bottom: calc(0.75rem * var(--tw-space-y-reverse)); }
+
+.space-y-4 > :not([hidden]) ~ :not([hidden]) { --tw-space-y-reverse: 0; margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse))); margin-bottom: calc(1rem * var(--tw-space-y-reverse)); }
+
+.overflow-auto { overflow: auto; }
+
+.whitespace-pre-line { white-space: pre-line; }
+
+.rounded-2xl { border-radius: 1rem; }
+
+.rounded-\[20px\] { border-radius: 20px; }
+
+.rounded-\[24px\] { border-radius: 24px; }
+
+.rounded-\[28px\] { border-radius: 28px; }
+
+.rounded-full { border-radius: 9999px; }
+
+.rounded-xl { border-radius: 0.75rem; }
+
+.border { border-width: 1px; }
+
+.border-b { border-bottom-width: 1px; }
+
+.border-amber-200 { --tw-border-opacity: 1; border-color: rgb(253 230 138 / var(--tw-border-opacity, 1)); }
+
+.bg-\[\#7c3aed\] { --tw-bg-opacity: 1; background-color: rgb(124 58 237 / var(--tw-bg-opacity, 1)); }
+
+.bg-\[\#ede9fe\] { --tw-bg-opacity: 1; background-color: rgb(237 233 254 / var(--tw-bg-opacity, 1)); }
+
+.bg-amber-100 { --tw-bg-opacity: 1; background-color: rgb(254 243 199 / var(--tw-bg-opacity, 1)); }
+
+.bg-amber-50 { --tw-bg-opacity: 1; background-color: rgb(255 251 235 / var(--tw-bg-opacity, 1)); }
+
+.bg-black { --tw-bg-opacity: 1; background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1)); }
+
+.bg-black\/80 { background-color: rgba(0, 0, 0, 0.8); }
+
+.bg-gray-100 { --tw-bg-opacity: 1; background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1)); }
+
+.bg-gray-900 { --tw-bg-opacity: 1; background-color: rgb(17 24 39 / var(--tw-bg-opacity, 1)); }
+
+.bg-green-100 { --tw-bg-opacity: 1; background-color: rgb(220 252 231 / var(--tw-bg-opacity, 1)); }
+
+.bg-white { --tw-bg-opacity: 1; background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1)); }
+
+.bg-white\/20 { background-color: rgba(255, 255, 255, 0.2); }
+
+.bg-red-50 { --tw-bg-opacity: 1; background-color: rgb(254 242 242 / var(--tw-bg-opacity, 1)); }
+
+.bg-gradient-to-br { background-image: linear-gradient(to bottom right, var(--tw-gradient-stops)); }
+
+.from-\[\#7c3aed\] { --tw-gradient-from: #7c3aed var(--tw-gradient-from-position); --tw-gradient-to: rgb(124 58 237 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+
+.to-\[\#4f46e5\] { --tw-gradient-to: #4f46e5 var(--tw-gradient-to-position); }
+
+.object-contain { object-fit: contain; }
+
+.p-3 { padding: 0.75rem; }
+
+.p-4 { padding: 1rem; }
+
+.p-5 { padding: 1.25rem; }
+
+.p-6 { padding: 1.5rem; }
+
+.px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
+
+.px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
+
+.px-4 { padding-left: 1rem; padding-right: 1rem; }
+
+.px-5 { padding-left: 1.25rem; padding-right: 1.25rem; }
+
+.py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+
+.py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+
+.py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+
+.pb-24 { padding-bottom: 6rem; }
+
+.text-center { text-align: center; }
+
+.text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
+
+.text-\[10px\] { font-size: 10px; }
+
+.text-\[11px\] { font-size: 11px; }
+
+.text-\[12px\] { font-size: 12px; }
+
+.text-\[13px\] { font-size: 13px; }
+
+.text-\[14px\] { font-size: 14px; }
+
+.text-\[16px\] { font-size: 16px; }
+
+.text-\[28px\] { font-size: 28px; }
+
+.text-\[15px\] { font-size: 15px; }
+
+.font-black { font-weight: 900; }
+
+.font-bold { font-weight: 700; }
+
+.font-extrabold { font-weight: 800; }
+
+.leading-\[1\.1\] { line-height: 1.1; }
+
+.leading-none { line-height: 1; }
+
+.text-\[\#7c3aed\] { --tw-text-opacity: 1; color: rgb(124 58 237 / var(--tw-text-opacity, 1)); }
+
+.text-gray-400 { --tw-text-opacity: 1; color: rgb(156 163 175 / var(--tw-text-opacity, 1)); }
+
+.text-gray-500 { --tw-text-opacity: 1; color: rgb(107 114 128 / var(--tw-text-opacity, 1)); }
+
+.text-gray-700 { --tw-text-opacity: 1; color: rgb(55 65 81 / var(--tw-text-opacity, 1)); }
+
+.text-green-700 { --tw-text-opacity: 1; color: rgb(21 128 61 / var(--tw-text-opacity, 1)); }
+
+.text-white { --tw-text-opacity: 1; color: rgb(255 255 255 / var(--tw-text-opacity, 1)); }
+
+.text-white\/80 { color: rgba(255, 255, 255, 0.8); }
+
+.text-gray-600 { --tw-text-opacity: 1; color: rgb(75 85 99 / var(--tw-text-opacity, 1)); }
+
+.text-red-600 { --tw-text-opacity: 1; color: rgb(220 38 38 / var(--tw-text-opacity, 1)); }
+
+.shadow-sm { --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color); box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow); }
+
+.outline-none { outline: transparent solid 2px; outline-offset: 2px; }
+
+.focus\:border-\[\#7c3aed\]:focus { --tw-border-opacity: 1; border-color: rgb(124 58 237 / var(--tw-border-opacity, 1)); }
+
+@media (min-width: 768px) {
+  .md\:block { display: block; }
+  .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0px, 1fr)); }
+}
+------MultipartBoundary--TjuRbsG4VKIBGzNlMvgEDLWBj1Koks222aqvDBopjf----
+Content-Type: text/css
+Content-Transfer-Encoding: binary
+Content-Location: cid:css-cecf25ce-f843-4e5a-8b14-4ec1ed5f284d@mhtml.blink
+
+@charset "utf-8";
+
+body { font-family: Inter, sans-serif; background: rgb(245, 243, 255); }
+
+h1, h2 { font-family: "Plus Jakarta Sans", sans-serif; }
+
+.upload-area { border: 2px dashed rgb(124, 58, 237); background: rgb(237, 233, 254); }
+
+.flip-card { perspective: 1000px; }
+
+.flip-inner { transition: transform 0.6s; transform-style: preserve-3d; }
+
+.flipped .flip-inner { transform: rotateY(180deg); }
+
+.flip-front, .flip-back { backface-visibility: hidden; position: absolute; inset: 0px; }
+
+.flip-back { transform: rotateY(180deg); }
+------MultipartBoundary--TjuRbsG4VKIBGzNlMvgEDLWBj1Koks222aqvDBopjf------
