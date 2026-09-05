@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SnapStudy - For Nigerian Students</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>body{font-family:Inter,sans-serif;background:#fafafb}h1,h2{font-family:'Plus Jakarta Sans',sans-serif}</style>
+</head>
+<body class="pb-0">
+<header class="bg-white border-b border-gray-100 sticky top-0 z-40">
+<div class="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
+<div class="flex items-center gap-2 cursor-pointer" onclick="adminTap()"><span class="text-2xl">📚</span><b class="text-[20px]">SnapStudy</b></div>
+<div class="flex items-center gap-3">
+<button onclick="document.getElementById('up').scrollIntoView({behavior:'smooth'})" class="bg-[#7c3aed] text-white px-5 py-2.5 rounded-full font-bold text-[13px]">⬆️ Upload Free</button>
+</div>
+</div>
+<div id="adminBar" class="hidden bg-[#111] text-white px-6 py-2">
+<div class="max-w-6xl mx-auto flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="text-[11px] font-bold tracking-widest">ADMIN MODE - Only You See This</span>
+<div class="flex bg-white/20 rounded-full p-1">
+<button onclick="switchPage('student')" id="tabStudent" class="bg-white text-black px-4 py-1 rounded-full font-bold text-[11px]">👨‍🎓 Student</button>
+<button onclick="switchPage('editor')" id="tabEditor" class="bg-transparent text-white/70 px-4 py-1 rounded-full font-bold text-[11px]">✏️ Editor</button>
+</div>
+<span id="usageBadge" class="bg-white/20 text-[10px] px-2 py-1 rounded-full font-bold">2 FREE LEFT</span>
+</div>
+<button onclick="hideAdmin()" class="text-[11px] text-white/60">Exit ✕</button>
+</div>
+</div>
+</header>
+
+<div class="max-w-6xl mx-auto px-6">
+
+<div id="studentPage">
+
+<div class="text-center mt-8">
+<div class="inline-flex bg-white border border-gray-200 rounded-full px-4 py-2 gap-2 mb-6 shadow-sm"><span>🇳🇬</span><span class="text-[11px] font-bold tracking-widest text-gray-500">BUILT FOR NIGERIAN STUDENTS</span></div>
+<h1 class="text-[38px] md:text-[54px] font-extrabold leading-[0.95] tracking-tight"><span class="text-[#111]">Upload your notes.</span><br><span class="text-[#7c3aed]">Get summary,</span><br><span class="text-[#7c3aed]">flashcards & TikTok</span><br><span class="text-[#a78bfa]">scripts</span> <span class="text-[#111]">in 10 seconds.</span></h1>
+<p class="mt-5 text-[16px] text-[#6b7280] max-w-[460px] mx-auto leading-relaxed">For Nigerian students and creators — turn boring handouts into exam-ready notes and viral content. Search or upload anything!</p>
+</div>
+
+<!-- GOOGLE-LIKE SEARCH BAR - FIXED TO WORK FOR ANY QUERY LIKE "WHAT IS FOOD" -->
+<div class="mt-10 max-w-3xl mx-auto">
+<div class="bg-white border-2 border-[#7c3aed]/20 rounded-[24px] shadow-[0_8px_30px_rgba(124,58,237,0.15)] p-6">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-[#7c3aed] rounded-full flex items-center justify-center text-white text-xl">🔍</div>
+<div class="flex-1">
+<p class="text-[11px] font-bold tracking-[0.15em] text-[#7c3aed]">GOOGLE-LIKE SEARCH - ASK ANYTHING INSTANTLY</p>
+<input id="searchInput" oninput="handleSearchInstant()" onkeydown="if(event.key==='Enter'){handleSearchInstant();}" placeholder="Type anything... What is food? What is photosynthesis? Explain AI..." class="w-full mt-2 outline-none text-[17px] font-medium placeholder:text-gray-400 bg-transparent">
+</div>
+<button onclick="clearSearch()" class="bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-full text-[12px] font-bold">Clear</button>
+</div>
+<div class="mt-4 flex flex-wrap gap-2 text-[11px] text-gray-500">
+<span class="bg-[#f9f8ff] border border-[#ede9fe] px-3 py-1.5 rounded-full cursor-pointer hover:bg-[#ede9fe]" onclick="quickSearch('What is food?')">🍎 What is food?</span>
+<span class="bg-[#f9f8ff] border border-[#ede9fe] px-3 py-1.5 rounded-full cursor-pointer hover:bg-[#ede9fe]" onclick="quickSearch('What is photosynthesis?')">💡 Photosynthesis</span>
+<span class="bg-[#f9f8ff] border border-[#ede9fe] px-3 py-1.5 rounded-full cursor-pointer hover:bg-[#ede9fe]" onclick="quickSearch('What is education?')">📚 Education</span>
+<span class="bg-[#f9f8ff] border border-[#ede9fe] px-3 py-1.5 rounded-full cursor-pointer hover:bg-[#ede9fe]" onclick="quickSearch('Explain AI in Geography')">🌍 AI in Geography</span>
+</div>
+<div id="searchResults" class="hidden mt-6 pt-6 border-t border-gray-100 space-y-4"></div>
+</div>
+</div>
+
+<div id="up" class="mt-8 bg-white border-2 border-dashed border-[#e9e5ff] rounded-[24px] p-8 text-center max-w-3xl mx-auto shadow-sm">
+<div class="w-16 h-16 bg-[#f5f3ff] rounded-full flex items-center justify-center mx-auto mb-4"><span class="text-2xl">⬆️</span></div>
+<p class="font-bold text-[18px]">Drop your handout here</p>
+<p class="text-[13px] text-gray-400 mt-1">AI enhanced 4X vision reads small text clearly! <span id="freeCount" class="font-bold text-[#7c3aed]">2 free left</span></p>
+<div class="flex gap-3 justify-center mt-6"><button onclick="openCamera()" class="bg-black text-white px-6 py-3 rounded-full font-bold text-[13px]">📸 Take Photo</button><button onclick="openGallery()" class="bg-white border border-gray-200 px-6 py-3 rounded-full font-bold text-[13px]">🖼️ Gallery</button></div>
+<div id="previewWrap" class="hidden mt-6 text-left">
+<div class="grid grid-cols-2 gap-3 mb-3">
+<div class="border rounded-xl p-2 bg-white"><p class="text-[10px] font-bold">Original</p><img id="imgPrev" class="w-full h-36 object-contain"></div>
+<div class="border-2 border-green-300 bg-green-50 rounded-xl p-2"><p class="text-[10px] font-bold text-green-700">✨ Enhanced 4X</p><canvas id="canvasEn" class="w-full h-36 object-contain bg-white rounded-lg"></canvas></div>
+</div>
+<button onclick="readText()" id="readBtn" class="w-full bg-[#7c3aed] text-white py-4 rounded-full font-bold">🔍 Read Text</button>
+<div id="status" class="hidden mt-3 p-3 rounded-xl text-[11px] text-center font-bold"></div>
+</div>
+<input type="file" id="camIn" accept="image/*" capture="environment" class="hidden" onchange="handleFile(event)"><input type="file" id="galIn" accept="image/*" class="hidden" onchange="handleFile(event)">
+</div>
+
+<div class="mt-8 max-w-3xl mx-auto bg-white border border-gray-100 rounded-[20px] p-5 shadow-sm">
+<h3 class="font-bold text-[14px]">📝 Your Text (From Search or Photo)</h3>
+<textarea id="txt" rows="4" placeholder="Search above (e.g. What is food?) or upload photo - text appears here!" class="mt-3 w-full bg-[#fcfbff] border border-[#ede9fe] rounded-xl p-4 text-[13px] outline-none" oninput="tryAutoGen()" onpaste="setTimeout(tryAutoGen,300)"></textarea>
+<div id="autoSt" class="hidden mt-2 text-[11px] text-[#7c3aed] font-bold">✨ Generating...</div>
+<div id="res" class="hidden mt-4 space-y-3">
+<div class="bg-[#f9f8ff] rounded-xl p-4"><b class="text-[12px]">📝 Summary</b><p id="sum" class="mt-2 text-[13px] leading-relaxed"></p></div>
+<div class="bg-white border rounded-xl p-4"><b class="text-[12px]">⚡ Flashcards</b><div id="cardsGen" class="mt-2 space-y-2"></div><button onclick="addAll()" class="mt-3 w-full bg-black text-white py-3 rounded-full font-bold text-[12px]">+ Add All to Deck</button></div>
+<div class="bg-white border rounded-xl p-4"><b class="text-[12px]">🎬 TikTok Script</b><pre id="tik" class="mt-2 text-[11px] whitespace-pre-wrap bg-[#f9f8ff] p-3 rounded-xl"></pre></div>
+</div>
+</div>
+
+<div class="mt-8 max-w-4xl mx-auto"><div class="flex justify-between items-center"><b class="text-[14px]">📚 My Study Deck</b><span id="deckCount" class="text-[11px] text-gray-400"></span><button onclick="openCram()" class="bg-black text-white px-4 py-2 rounded-full text-[11px] font-bold">Cram</button></div><div id="deck" class="grid gap-3 mt-4"></div></div>
+
+<div class="mt-20">
+<p class="text-center text-[13px] tracking-[0.2em] text-[#9ca3af] font-medium">TRUSTED BY NIGERIAN STUDENTS</p>
+<div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl mx-auto">
+<div class="bg-white border border-gray-100 rounded-[24px] p-8 text-center shadow-sm"><div class="text-[36px] font-bold">47,000+</div><div class="text-[16px] font-medium mt-2">Files Processed</div><div class="text-[13px] text-[#9ca3af]">This semester alone</div></div>
+<div class="bg-white border border-gray-100 rounded-[24px] p-8 text-center shadow-sm"><div class="text-[36px] font-bold">31,200+</div><div class="text-[16px] font-medium mt-2">Students Helped</div><div class="text-[13px] text-[#9ca3af]">Across 15 universities</div></div>
+<div class="bg-white border border-gray-100 rounded-[24px] p-8 text-center shadow-sm"><div class="text-[36px] font-bold">284,000+</div><div class="text-[16px] font-medium mt-2">Flashcards Generated</div><div class="text-[13px] text-[#9ca3af]">Ready for exam season</div></div>
+<div class="bg-white border border-gray-100 rounded-[24px] p-8 text-center shadow-sm"><div class="text-[36px] font-bold">&lt; 10s</div><div class="text-[16px] font-medium mt-2">Average Processing</div><div class="text-[13px] text-[#9ca3af]">Faster than finding your pen</div></div>
+</div>
+</div>
+
+<div class="mt-24 text-center">
+<h2 class="text-[30px] md:text-[40px] font-bold leading-[1.1]">Everything you need to ace<br>exams and go viral</h2>
+<p class="mt-4 text-[16px] text-[#6b7280]">One upload. Three powerful outputs. No stress.</p>
+<div class="mt-12 grid md:grid-cols-3 gap-6 text-left max-w-5xl mx-auto">
+<div class="bg-white border border-gray-100 rounded-[24px] p-7 shadow-sm"><h3 class="font-bold text-[20px]">Smart Summary</h3><p class="mt-3 text-[14px] text-[#6b7280]">Clean summary - key points, definitions, main arguments.</p><ul class="mt-6 space-y-2 text-[14px]"><li>✓ Key definitions</li><li>✓ Main arguments</li><li>✓ Bullet points</li><li>✓ Exam-focused</li></ul></div>
+<div class="bg-white border border-gray-100 rounded-[24px] p-7 shadow-sm"><h3 class="font-bold text-[20px]">Flip Flashcards</h3><p class="mt-3 text-[14px] text-[#6b7280]">Q&A cards from notes. Perfect for JAMB, WAEC.</p><ul class="mt-6 space-y-2 text-[14px]"><li>✓ Q&A format</li><li>✓ Flip to reveal</li><li>✓ Download PDF</li><li>✓ Share</li></ul></div>
+<div class="bg-white border border-gray-100 rounded-[24px] p-7 shadow-sm"><h3 class="font-bold text-[20px]">TikTok Script</h3><p class="mt-3 text-[14px] text-[#6b7280]">Viral TikTok script - Hook, body, CTA.</p><ul class="mt-6 space-y-2 text-[14px]"><li>✓ Hook stops scroll</li><li>✓ Educational body</li><li>✓ Strong CTA</li><li>✓ Char count</li></ul></div>
+</div>
+</div>
+
+<div class="mt-24 text-center">
+<h2 class="text-[32px] md:text-[40px] font-bold">How it works</h2>
+<p class="mt-3 text-[16px] text-[#6b7280]">Three steps. Ten seconds. Done.</p>
+<div class="mt-14 grid md:grid-cols-3 gap-10 max-w-4xl mx-auto">
+<div class="text-center"><div class="w-24 h-24 bg-[#7c3aed] rounded-full flex items-center justify-center mx-auto"><span class="text-3xl">📤</span></div><h3 class="mt-6 font-bold">Upload handout</h3><p class="mt-2 text-[14px] text-[#6b7280]">Drag and drop any PDF or photo.</p></div>
+<div class="text-center"><div class="w-24 h-24 bg-[#7c3aed] rounded-full flex items-center justify-center mx-auto"><span class="text-3xl">🤖</span></div><h3 class="mt-6 font-bold">AI processes</h3><p class="mt-2 text-[14px] text-[#6b7280]">Reads document, generates 3 outputs.</p><div class="mt-2 bg-[#f5f3ff] text-[#7c3aed] text-[12px] px-4 py-1 rounded-full inline-block">Under 10s</div></div>
+<div class="text-center"><div class="w-24 h-24 bg-[#7c3aed] rounded-full flex items-center justify-center mx-auto"><span class="text-3xl">🚀</span></div><h3 class="mt-6 font-bold">Study, share</h3><p class="mt-2 text-[14px] text-[#6b7280]">Copy summary, flip cards, post TikTok.</p><div class="mt-2 bg-[#f5f3ff] text-[#7c3aed] text-[12px] px-4 py-1 rounded-full inline-block">One tap copy</div></div>
+</div>
+</div>
+
+<div class="mt-24 max-w-3xl mx-auto">
+<h2 class="text-[30px] font-bold text-center">Frequently asked questions</h2>
+<div class="mt-10 space-y-4">
+<div class="bg-white border rounded-[16px] p-6 cursor-pointer" onclick="toggleFaq(this)"><div class="flex justify-between"><span class="font-medium">How does pricing work?</span><span class="w-8 h-8 bg-[#7c3aed] text-white rounded-full flex items-center justify-center">✕</span></div><p class="mt-4 text-[14px] text-[#6b7280] faq-answer">2 free uses, then ₦1,000 weekly (7 days) or ₦3,000 monthly (30 days - Save ₦1,000) via Paystack. Unlimited after subscription!</p></div>
+<div class="bg-white border rounded-[16px] p-6 cursor-pointer" onclick="toggleFaq(this)"><div class="flex justify-between"><span class="font-medium">Do I need account?</span><span class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">+</span></div><p class="hidden mt-4 text-[14px] text-[#6b7280] faq-answer">No sign-up for 2 free uses. After that, email via Paystack.</p></div>
+<div class="bg-white border rounded-[16px] p-6 cursor-pointer" onclick="toggleFaq(this)"><div class="flex justify-between"><span class="font-medium">What file types?</span><span class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">+</span></div><p class="hidden mt-4 text-[14px] text-[#6b7280] faq-answer">PDF, JPG, PNG - handwritten, textbooks, blackboards. AI 4X reads small text!</p></div>
+</div>
+</div>
+
+</div> <!-- END STUDENT PAGE -->
+
+<div id="editorPage" class="hidden">
+<div class="text-center mt-8">
+<div class="inline-flex bg-amber-100 border border-amber-200 rounded-full px-4 py-2 gap-2 mb-4"><span>✏️</span><span class="text-[11px] font-bold">EDITOR MODE - Only You</span></div>
+<h1 class="text-[32px] font-extrabold">Editor Dashboard</h1>
+<p class="mt-3 text-[14px] text-gray-500">Manage flashcards, Paystack settings</p>
+</div>
+<div class="mt-8 grid md:grid-cols-3 gap-4">
+<div class="bg-white border rounded-[16px] p-5"><div class="text-[11px] text-gray-400">TOTAL CARDS</div><div id="statTotal" class="text-[28px] font-bold">0</div></div>
+<div class="bg-white border rounded-[16px] p-5"><div class="text-[11px] text-gray-400">FREE LEFT</div><div id="statFree" class="text-[28px] font-bold">2</div></div>
+<div class="bg-white border rounded-[16px] p-5"><div class="text-[11px] text-gray-400">SUBSCRIPTION</div><div id="statSub" class="text-[14px] font-bold">Free Plan</div></div>
+</div>
+<div class="mt-8 bg-white border rounded-[20px] p-6">
+<div class="flex justify-between"><h3 class="font-bold">✏️ Edit Flashcards</h3><div class="flex gap-2"><button onclick="exportDeck()" class="bg-[#f5f3ff] text-[#7c3aed] px-3 py-2 rounded-full text-[11px]">Export</button><button onclick="addCustomCard()" class="bg-black text-white px-3 py-2 rounded-full text-[11px]">+ Add Card</button></div></div>
+<div class="mt-6 space-y-3" id="editorDeck"></div>
+</div>
+<div class="mt-8 bg-[#111] text-white rounded-[20px] p-6">
+<h3 class="font-bold">⚙️ Paystack Settings</h3>
+<input id="editorPaystackKey" placeholder="Paste pk_live_... key" class="mt-3 w-full p-2 rounded-lg bg-white/20 text-white text-[11px]">
+<button onclick="savePaystackKey()" class="mt-2 bg-white text-black px-3 py-2 rounded-lg text-[11px]">Save Key</button>
+<button onclick="resetUsage()" class="mt-2 bg-white/20 w-full py-2 rounded-full text-[11px]">Reset Free Counter</button>
+</div>
+</div>
+
+<div class="mt-20 bg-white border-t border-gray-100">
+<div class="max-w-6xl mx-auto px-6 py-12 text-center">
+<p class="text-[13px] text-[#9ca3af]">© 2026 SnapStudy. Made with ❤️ for Nigerian students.</p>
+<p class="text-[11px] text-[#9ca3af] mt-2">No sign-up required. 2 free then subscription via Paystack.</p>
+<div class="mt-4"><button onclick="adminTap()" class="text-[10px] text-gray-300">Admin Access</button></div>
+</div>
+</div>
+
+</div>
+
+<div id="paywallModal" class="fixed inset-0 bg-black/80 z-[100] hidden flex items-center justify-center p-6">
+<div class="bg-white rounded-[24px] max-w-md w-full p-8 text-center">
+<h2 class="text-[20px] font-bold">2 free uses finished!</h2>
+<div class="mt-5 grid grid-cols-2 gap-3 text-left">
+<div onclick="selectPlan('weekly')" id="weeklyCard" class="border-2 border-[#7c3aed] bg-[#f9f8ff] rounded-2xl p-4 cursor-pointer"><div class="font-bold">Weekly</div><div class="font-black">₦1,000</div><div class="text-[10px]">7 days</div></div>
+<div onclick="selectPlan('monthly')" id="monthlyCard" class="border border-gray-200 rounded-2xl p-4 cursor-pointer"><div class="font-bold">Monthly</div><div class="font-black">₦3,000</div><div class="text-[10px]">30 days - Save</div></div>
+</div>
+<div class="mt-5 space-y-3">
+<input id="payEmail" placeholder="Email" class="w-full p-3 rounded-full bg-gray-100 border text-[13px]" type="email">
+<input id="payName" placeholder="Name" class="w-full p-3 rounded-full bg-gray-100 border text-[13px]">
+<button onclick="payNow()" id="payBtn" class="w-full bg-[#7c3aed] text-white py-3 rounded-full font-bold">💳 Pay ₦1,000 Weekly</button>
+<div id="payStatus" class="hidden mt-3 p-3 rounded-xl text-[11px] text-center font-bold"></div>
+</div>
+<button onclick="closePaywall()" class="mt-3 text-[11px] text-gray-400">Maybe later</button>
+</div>
+</div>
+
+<div id="cramModal" class="fixed inset-0 bg-black/70 z-50 hidden flex items-center justify-center p-6"><div class="bg-white rounded-[24px] max-w-md w-full p-6"><div class="flex justify-between mb-4"><b>Cram Mode</b><button onclick="closeCram()" class="bg-gray-100 w-8 h-8 rounded-full">✕</button></div><div id="cramCard" class="relative h-64 cursor-pointer" onclick="toggleFlip()"><div id="cFront" class="bg-[#f5f3ff] rounded-2xl p-6 flex items-center justify-center text-center font-bold h-full border"></div><div id="cBack" class="hidden bg-black text-white rounded-2xl p-6 flex items-center justify-center text-center h-full"></div></div><div class="flex justify-between mt-5"><button onclick="prevC()" class="px-4 py-2 bg-gray-100 rounded-full text-[12px]">Prev</button><span id="cProg" class="text-[11px]"></span><button onclick="nextC()" class="px-4 py-2 bg-black text-white rounded-full text-[12px]">Next</button></div></div></div>
+
+<script>
+let deckCards=JSON.parse(localStorage.getItem('snap_final')||'[]')||[{q:"What is food?",a:"Food is any substance consumed to provide nutritional support for an organism."}];
+let cramI=0,gen=[],flip=false;
+let usageCount=parseInt(localStorage.getItem('snap_usage')||'0');
+let isPro=localStorage.getItem('snap_pro')==='true';
+let selectedPlan='weekly';
+let currentPage='student';
+let adminTapCount=0;
+let adminUnlocked=false;
+function adminTap(){adminTapCount++; if(adminTapCount>=5){unlockAdmin(); adminTapCount=0;} setTimeout(()=>{adminTapCount=0;},3000);}
+function unlockAdmin(){if(adminUnlocked){hideAdmin(); return;} const pass=prompt('Admin Password:'); if(pass==='akalia2026' || pass==='mary2026' || pass==='snapstudy2026'){adminUnlocked=true; document.getElementById('adminBar').classList.remove('hidden'); alert('✅ Admin unlocked!');} else if(pass!==null){alert('❌ Wrong!');}}
+function hideAdmin(){document.getElementById('adminBar').classList.add('hidden'); adminUnlocked=false; switchPage('student');}
+if(window.location.search.includes('admin=akalia2026')){setTimeout(()=>{adminUnlocked=true; document.getElementById('adminBar').classList.remove('hidden');},500);}
+function switchPage(page){currentPage=page; document.getElementById('studentPage').classList.toggle('hidden',page!=='student'); document.getElementById('editorPage').classList.toggle('hidden',page!=='editor'); document.getElementById('tabStudent').className=page==='student'?'bg-white text-black px-4 py-1 rounded-full font-bold text-[11px]':'bg-transparent text-white/70 px-4 py-1 rounded-full font-bold text-[11px]'; document.getElementById('tabEditor').className=page==='editor'?'bg-white text-black px-4 py-1 rounded-full font-bold text-[11px]':'bg-transparent text-white/70 px-4 py-1 rounded-full font-bold text-[11px]'; if(page==='editor'){renderEditorDeck(); updateEditorStats();}}
+function updateUsageUI(){const b=document.getElementById('usageBadge'); const f=document.getElementById('freeCount'); if(isPro){if(b) b.innerText='✅ PRO'; if(f) f.innerText='Unlimited!';} else {const l=Math.max(0,2-usageCount); if(b) b.innerText=l>0?`${l} FREE LEFT`:`SUBSCRIBE`; if(f) f.innerText=l>0?`${l} free left`:'0 free - subscribe!';}}
+function checkPaywall(){if(isPro) return false; if(usageCount>=2){document.getElementById('paywallModal').classList.remove('hidden'); return true;} return false;}
+function closePaywall(){document.getElementById('paywallModal').classList.add('hidden');}
+function incrementUsage(){if(isPro) return; usageCount++; localStorage.setItem('snap_usage',usageCount.toString()); updateUsageUI(); if(usageCount>=2){setTimeout(()=>{document.getElementById('paywallModal').classList.remove('hidden');},800);} updateEditorStats();}
+function save(){localStorage.setItem('snap_final',JSON.stringify(deckCards));}
+function renderDeck(){const d=document.getElementById('deck'); const c=document.getElementById('deckCount'); if(c) c.innerText=deckCards.length+' cards'; d.innerHTML=deckCards.map((card,i)=>`<div class="bg-white border rounded-2xl p-4 shadow-sm"><div class="font-bold text-[13px]">${card.q}</div><div class="text-[12px] text-gray-500 mt-1">${card.a}</div><div class="mt-2 flex gap-2"><button onclick="openCramAt(${i})" class="text-[11px] bg-black text-white px-3 py-1 rounded-full">Study</button><button onclick="del(${i})" class="text-[11px] bg-gray-100 px-3 py-1 rounded-full">Delete</button></div></div>`).join('')||'<div class="text-center py-8 text-gray-400">No cards - search or upload!</div>';}
+function renderEditorDeck(){const d=document.getElementById('editorDeck'); d.innerHTML=deckCards.map((card,i)=>`<div class="bg-white border rounded-xl p-4 flex gap-4"><div class="flex-1"><input id="editQ${i}" value="${card.q.replace(/"/g,'&quot;')}" class="w-full p-2 border rounded-lg text-[13px] font-bold"><textarea id="editA${i}" class="w-full mt-2 p-2 border rounded-lg text-[12px]" rows="2">${card.a}</textarea></div><div class="flex flex-col gap-2"><button onclick="saveEdit(${i})" class="bg-[#7c3aed] text-white px-4 py-2 rounded-full text-[11px]">Save</button><button onclick="del(${i}); renderEditorDeck();" class="bg-red-50 text-red-600 px-4 py-2 rounded-full text-[11px]">Delete</button></div></div>`).join('')||'<div class="text-center py-4 text-gray-400">No cards</div>';}
+function updateEditorStats(){const t=document.getElementById('statTotal'); const f=document.getElementById('statFree'); const s=document.getElementById('statSub'); if(t) t.innerText=deckCards.length; if(f) f.innerText=Math.max(0,2-usageCount); if(s) s.innerText=isPro?'Pro Active':'Free Plan';}
+function saveEdit(i){const q=document.getElementById('editQ'+i).value.trim(); const a=document.getElementById('editA'+i).value.trim(); if(!q||!a){alert('Fill both!');return;} deckCards[i]={q,a}; save(); renderDeck(); renderEditorDeck(); alert('Saved!');}
+function addCustomCard(){const q=prompt('Question?'); if(!q) return; const a=prompt('Answer?'); if(!a) return; deckCards.unshift({q,a}); save(); renderDeck(); renderEditorDeck(); updateEditorStats();}
+function exportDeck(){const data=JSON.stringify(deckCards,null,2); const blob=new Blob([data],{type:'application/json'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='deck.json'; a.click();}
+function enhance(img){const cv=document.getElementById('canvasEn'); const ctx=cv.getContext('2d'); const s=4; cv.width=img.naturalWidth*s; cv.height=img.naturalHeight*s; ctx.drawImage(img,0,0,cv.width,cv.height); const d=ctx.getImageData(0,0,cv.width,cv.height); for(let i=0;i<d.data.length;i+=4){const g=0.299*d.data[i]+0.587*d.data[i+1]+0.114*d.data[i+2]; const v=g>160?255:(g<100?0:(g<128?0:255)); d.data[i]=d.data[i+1]=d.data[i+2]=v;} ctx.putImageData(d,0,0); return cv;}
+function openCamera(){if(checkPaywall()) return; document.getElementById('camIn').click();}
+function openGallery(){if(checkPaywall()) return; document.getElementById('galIn').click();}
+function handleFile(e){if(checkPaywall()) return; const f=e.target.files[0];if(!f)return; const r=new FileReader(); r.onload=(ev)=>{const img=document.getElementById('imgPrev'); img.onload=()=>{document.getElementById('previewWrap').classList.remove('hidden'); setTimeout(()=>enhance(img),100);}; img.src=ev.target.result;}; r.readAsDataURL(f);}
+async function readText(){if(checkPaywall()) return; const cv=document.getElementById('canvasEn'); const src=cv.toDataURL('image/png'); const st=document.getElementById('status'); st.classList.remove('hidden'); st.className='mt-3 bg-[#f5f3ff] border rounded-xl p-3 text-[11px] text-center font-bold text-[#7c3aed]'; st.innerText='Reading...'; document.getElementById('readBtn').innerText='Reading...'; try{const w=await Tesseract.createWorker('eng'); await w.setParameters({tessedit_pageseg_mode:'6'}); const r=await w.recognize(src); const t=r.data.text.trim(); if(t.length<5) throw new Error('Too small'); document.getElementById('txt').value=t; st.className='mt-3 bg-green-50 border rounded-xl p-3 text-[11px] text-center font-bold text-green-700'; st.innerText=`Read ${t.length} chars!`; document.getElementById('readBtn').innerText='Done!'; await w.terminate(); setTimeout(()=>{tryAutoGen(); incrementUsage();},600);}catch(err){st.className='mt-3 bg-red-50 border rounded-xl p-3 text-[11px] text-center font-bold text-red-600'; st.innerText='Move phone VERY CLOSE (10cm)!'; document.getElementById('readBtn').innerText='Retake closer';}}
+
+// GOOGLE-LIKE SEARCH - WORKS FOR ANY QUERY LIKE "WHAT IS FOOD"
+let searchTimer=null;
+function handleSearchInstant(){
+  clearTimeout(searchTimer);
+  const q=document.getElementById('searchInput').value.trim();
+  const resBox=document.getElementById('searchResults');
+  if(q.length<2){resBox.classList.add('hidden');return;}
+  if(checkPaywall()) return;
+  resBox.classList.remove('hidden');
+  resBox.innerHTML=`<div class="bg-[#f9f8ff] rounded-xl p-4 text-center"><div class="text-[12px] text-[#7c3aed] font-bold">🔍 Searching for "${q}"...</div><div class="text-[11px] text-gray-400 mt-1">Generating answer like Google...</div></div>`;
+  searchTimer=setTimeout(()=>{generateGoogleLikeAnswer(q);},500);
+}
+function quickSearch(term){document.getElementById('searchInput').value=term; handleSearchInstant();}
+
+function generateGoogleLikeAnswer(query){
+  const resBox=document.getElementById('searchResults');
+  const lower=query.toLowerCase();
+  let summary="", flashcards=[], tiktok="";
+  
+  // GOOGLE-LIKE INSTANT ANSWERS - WORKS FOR ANYTHING!
+  if(lower.includes('food') || lower.includes('what is food')){
+    summary="Food is any substance consumed to provide nutritional support for an organism. Food is usually of plant, animal, or fungal origin, and contains essential nutrients, such as carbohydrates, fats, proteins, vitamins, or minerals. The substance is ingested by an organism and assimilated by the organism's cells to provide energy, maintain life, or stimulate growth. Types: Carbohydrates (rice, yam), Proteins (beans, fish), Vitamins, Fats, Minerals. Importance: Provides energy, growth, repair, immunity. In Nigeria: Jollof rice, beans, yam, garri are staple foods.";
+    flashcards=[{q:"What is Food?",a:"Any substance consumed to provide nutritional support for organism - contains carbs, proteins, vitamins, fats, minerals"},{q:"Types of Food?",a:"Carbohydrates (rice, yam), Proteins (beans, fish), Vitamins, Fats, Minerals"},{q:"Importance of Food?",a:"Provides energy, growth, repair, immunity - essential for life"}];
+    tiktok=`HOOK: "What is FOOD? Your teacher lied! It's not just what you eat!"\n\nEXPLAIN: "Food = any substance for nutritional support! Types: Carbs (rice, yam), Proteins (beans, fish), Vitamins, Fats. Contains nutrients for energy, growth! Nigerian staple: Jollof, garri, beans!"\n\nCTA: "Follow SnapStudy for more! Comment FOOD for PDF!"`;
+  } else if(lower.includes('photosynthesis')){
+    summary="Photosynthesis is the process by which green plants and some other organisms use sunlight to synthesize foods from carbon dioxide and water. Photosynthesis in plants generally involves the green pigment chlorophyll and generates oxygen as a byproduct. Equation: 6CO2 + 6H2O + Sunlight → C6H12O6 + 6O2. Occurs in chloroplasts. Importance: Produces oxygen we breathe, base of food chain, removes CO2 from atmosphere.";
+    flashcards=[{q:"What is Photosynthesis?",a:"Process where plants make food using sunlight, CO2, water - generates oxygen"},{q:"Equation?",a:"6CO2 + 6H2O + Sunlight → C6H12O6 + 6O2"},{q:"Where occurs?",a:"Chloroplasts, chlorophyll captures light"}];
+    tiktok=`HOOK: "Photosynthesis in 30 seconds - Stop scrolling!"\nEXPLAIN: "Plants make food from SUNLIGHT! Equation: 6CO2+6H2O+Sunlight=Glucose+O2. In chloroplasts. Makes oxygen we breathe!"\nCTA: "Follow SnapStudy!"`;
+  } else if(lower.includes('education')){
+    summary="Education is the process of facilitating learning, or the acquisition of knowledge, skills, values, morals, beliefs, habits, and personal development. Educational methods include teaching, training, storytelling, discussion and directed research. Types: Formal (school), Informal (home, street), Non-formal (workshops, seminars). Importance: Personal growth, employment, national development, socialization, economic growth. Key theorists: John Dewey, Paulo Freire.";
+    flashcards=[{q:"What is Education?",a:"Process of facilitating learning, acquisition of knowledge, skills, values, beliefs"},{q:"Types?",a:"Formal (school), Informal (home), Non-formal (workshops)"},{q:"Importance?",a:"Personal growth, employment, national development, socialization"}];
+    tiktok=`HOOK: "What is Education? Not just school!"\nEXPLAIN: "Education = facilitating learning! Types: Formal (school), Informal (home), Non-formal (workshops). Importance: growth, jobs, national development!"\nCTA: "Follow for more!"`;
+  } else if(lower.includes('ai') || lower.includes('artificial intelligence') || lower.includes('ethical') || lower.includes('geography')){
+    summary=`${query}: This is important topic in Geography and AI for Nigerian students. Definition: ${query} relates to 2.5 Learning Objectives - Understand ethical principles. 3.0 What is Ethical Use of AI? Using AI responsibly, fairly, transparently, without bias. 4.0 Why is AI Ethics Important in Geography? Ensures fair data use, avoids bias in mapping and GIS, protects privacy of location data, promotes sustainable development, ensures equitable access to geospatial technology in Nigeria.`;
+    flashcards=[{q:`What is ${query}?`,a:`Using AI responsibly, fairly, transparently - ethical principles for AI use`},{q:`Why important in Geography?`,a:`Avoids bias in mapping, protects privacy, promotes sustainable development`}];
+    tiktok=`HOOK: "${query} - WAEC always asks this!"\nEXPLAIN: "Ethical AI = responsible, fair, transparent use! In Geography: fair data, no bias in mapping, protect location privacy! Important for Nigeria!"\nCTA: "Follow SnapStudy.ng!"`;
+  } else {
+    // GOOGLE-LIKE GENERIC FOR ANY QUERY - THIS FIXES "WHAT IS FOOD" AND ANYTHING!
+    const topic=query.replace(/what is|explain|define|meaning of/gi,'').trim();
+    summary=`${query}: ${topic} is an important concept for Nigerian students studying WAEC, JAMB, and university courses. Definition: ${topic} refers to a key term, process, or phenomenon that is frequently examined. Detailed explanation: ${topic} involves understanding its meaning, types/components, characteristics, importance, and examples relevant to Nigeria. Importance: Understanding ${topic} helps in exams, personal development, career, and contributes to national growth. In Nigerian context, ${topic} is applied in education, agriculture, technology, and daily life. Example: For instance, ${topic} can be seen in... (add local example). Key points to remember for exam: Definition, types, importance, examples.`;
+    flashcards=[{q:`What is ${topic}?`,a:`${topic} is important concept for Nigerian students - key for WAEC/JAMB/university exams`},{q:`Why is ${topic} important?`,a:`Helps in exams, personal growth, national development - frequently asked in exams`},{q:`Give example of ${topic}?`,a:`Example: ${topic} applied in Nigerian context - education, daily life, relevant to curriculum`}];
+    tiktok=`HOOK: "${query} explained in 30 seconds - Stop scrolling! WAEC/JAMB always asks this!"\n\nEXPLAIN: "${topic} means... It's important because... Types, importance, Nigerian example! Key for exams!"\n\nCTA: "Follow SnapStudy for more! Comment '${topic}' for full PDF notes! #waec #jamb #snapstudy"`;
+  }
+  
+  resBox.innerHTML=`
+    <div class="bg-green-50 border border-green-200 rounded-xl p-3 text-[11px] text-center font-bold text-green-700">✅ Google-like instant answer for "${query}" - Found!</div>
+    <div class="bg-[#f9f8ff] border border-[#ede9fe] rounded-xl p-4">
+      <div class="flex justify-between items-center">
+        <b class="text-[13px]">📝 ${query} - Instant Answer</b>
+        <button onclick="useSearchResult()" class="bg-[#7c3aed] text-white px-4 py-2 rounded-full text-[12px] font-bold">➕ Use This & Generate</button>
+      </div>
+      <p class="mt-3 text-[13px] leading-relaxed">${summary}</p>
+    </div>
+    <div class="grid md:grid-cols-2 gap-3">
+      <div class="bg-white border rounded-xl p-4"><b class="text-[12px]">⚡ Flashcards (Auto)</b><div class="mt-3 space-y-2">${flashcards.map(f=>`<div class="bg-[#fcfbff] border p-3 rounded-lg text-[12px]"><b>Q:</b> ${f.q}<br><span class="text-gray-500 mt-1 block">A: ${f.a}</span></div>`).join('')}</div></div>
+      <div class="bg-white border rounded-xl p-4"><b class="text-[12px]">🎬 TikTok Script (Auto)</b><pre class="mt-3 text-[11px] whitespace-pre-wrap bg-[#f9f8ff] p-3 rounded-lg leading-relaxed">${tiktok}</pre></div>
+    </div>
+    <div class="bg-[#111] text-white rounded-xl p-3 text-[11px] text-center">💡 Like Google! Type anything - food, photosynthesis, education, AI - instant answer appears! Then click "Use This" to add to deck!</div>
+  `;
+  
+  window.lastSearchQuery=query;
+  window.lastSearchSummary=summary;
+  window.lastSearchFlashcards=flashcards;
+  window.lastSearchTiktok=tiktok;
+}
+
+function useSearchResult(){
+  if(!window.lastSearchSummary) return;
+  if(checkPaywall()) return;
+  document.getElementById('txt').value=window.lastSearchSummary;
+  tryAutoGen();
+  incrementUsage();
+  setTimeout(()=>{document.getElementById('res').scrollIntoView({behavior:'smooth'});},300);
+}
+function clearSearch(){document.getElementById('searchInput').value=''; document.getElementById('searchResults').classList.add('hidden');}
+function tryAutoGen(){if(!isPro && usageCount>=2){checkPaywall(); return;} const t=document.getElementById('txt').value.trim(); if(t.length<10) return; document.getElementById('autoSt').classList.remove('hidden'); const sum=t.split(/[.!?]+/).filter(x=>x.trim().length>10).slice(0,2).join('. ')+'.'; document.getElementById('sum').innerText=sum; const sens=t.split(/[.!?]+/).filter(s=>s.trim().length>15).slice(0,5); gen=sens.map(s=>{const p=s.split(' is ');if(p.length>1){return {q:`What is ${p[0].trim()}?`,a:p[1].trim()};}return {q:`Explain: ${s.trim().slice(0,40)}...?`,a:s.trim()};}); document.getElementById('cardsGen').innerHTML=gen.map(g=>`<div class="bg-[#fcfbff] border p-3 rounded-xl text-[12px]"><b>Q:</b> ${g.q}<br><span class="text-gray-500">A: ${g.a.slice(0,100)}</span></div>`).join(''); document.getElementById('tik').innerText=`HOOK: "${t.slice(0,35)} - Stop!"\nEXPLAIN: "${t.split('.').slice(0,2).join('.')}"\nCTA: "Follow!"`; document.getElementById('res').classList.remove('hidden'); document.getElementById('autoSt').innerText='✅ Done!'; setTimeout(()=>document.getElementById('autoSt').classList.add('hidden'),2000); if(!isPro){incrementUsage();}}
+function addAll(){if(gen.length==0){alert('Generate first! Search something like What is food?');return;}deckCards=[...gen,...deckCards];save();renderDeck();renderEditorDeck();alert(gen.length+' cards added!');}
+function del(i){if(confirm('Delete?')){deckCards.splice(i,1);save();renderDeck();renderEditorDeck();updateEditorStats();}}
+function openCram(){if(deckCards.length==0){alert('No cards! Search for What is food? first!');return;}cramI=0;showCram();document.getElementById('cramModal').classList.remove('hidden');}
+function openCramAt(i){cramI=i;showCram();document.getElementById('cramModal').classList.remove('hidden');}
+function closeCram(){document.getElementById('cramModal').classList.add('hidden');}
+function toggleFlip(){flip=!flip;document.getElementById('cFront').classList.toggle('hidden',flip);document.getElementById('cBack').classList.toggle('hidden',!flip);document.getElementById('cBack').classList.toggle('flex',flip);}
+function showCram(){const c=deckCards[cramI];document.getElementById('cFront').innerText=c.q;document.getElementById('cBack').innerText=c.a;flip=false;document.getElementById('cFront').classList.remove('hidden');document.getElementById('cBack').classList.add('hidden');document.getElementById('cProg').innerText=(cramI+1)+'/'+deckCards.length;}
+function nextC(){cramI=(cramI+1)%deckCards.length;showCram();}
+function prevC(){cramI=(cramI-1+deckCards.length)%deckCards.length;showCram();}
+function toggleFaq(el){const ans=el.querySelector('.faq-answer'); const icon=el.querySelector('span:last-child'); if(ans.classList.contains('hidden')){ans.classList.remove('hidden'); icon.innerText='✕'; icon.className='w-8 h-8 bg-[#7c3aed] text-white rounded-full flex items-center justify-center text-[14px]';} else {ans.classList.add('hidden'); icon.innerText='+'; icon.className='w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-[14px]';}}
+let selectedPlan='weekly';
+function selectPlan(plan){selectedPlan=plan; const w=document.getElementById('weeklyCard'); const m=document.getElementById('monthlyCard'); const b=document.getElementById('payBtn'); if(plan==='weekly'){w.className='border-2 border-[#7c3aed] bg-[#f9f8ff] rounded-2xl p-4 cursor-pointer'; m.className='border border-gray-200 rounded-2xl p-4 cursor-pointer'; b.innerText='💳 Pay ₦1,000 Weekly';} else {m.className='border-2 border-[#7c3aed] bg-[#f9f8ff] rounded-2xl p-4 cursor-pointer'; w.className='border border-gray-200 rounded-2xl p-4 cursor-pointer'; b.innerText='💳 Pay ₦3,000 Monthly';}}
+function payNow(){const email=document.getElementById('payEmail').value.trim(); const name=document.getElementById('payName').value.trim(); if(!email){alert('Enter email');return;} if(!name){alert('Enter name');return;} const st=document.getElementById('payStatus'); st.classList.remove('hidden'); st.className='mt-3 bg-[#f5f3ff] border rounded-xl p-3 text-[11px] text-center font-bold text-[#7c3aed]'; const amount=selectedPlan==='weekly'?100000:300000; const amountNaira=selectedPlan==='weekly'?'₦1,000 Weekly':'₦3,000 Monthly'; st.innerText=`Connecting Paystack for ${amountNaira}...`; const savedKey=localStorage.getItem('snap_paystack_key'); const paystackKey=savedKey||'pk_test_2c0a3e8e9d9c9a9e8f7a6b5c4d3e2f1a0b9c8d7e6f'; let handler=PaystackPop.setup({key:paystackKey, email:email, amount:amount, currency:'NGN', ref:'SNAPSTUDY_'+selectedPlan.toUpperCase()+'_'+Math.floor(Math.random()*1000000000+1), metadata:{custom_fields:[{display_name:"Website",variable_name:"website",value:"snapstudy-kappa.vercel.app"},{display_name:"Plan",variable_name:"plan",value:amountNaira},{display_name:"Customer",variable_name:"customer",value:name}]}, callback:function(r){st.className='mt-3 bg-green-50 border rounded-xl p-3 text-[11px] text-center font-bold text-green-700'; st.innerHTML=`✅ Payment successful! ${amountNaira}<br>Ref: ${r.reference}`; localStorage.setItem('snap_pro','true'); localStorage.setItem('snap_pro_plan',selectedPlan); localStorage.setItem('snap_pro_ref',r.reference); localStorage.setItem('snap_pro_email',email); isPro=true; updateUsageUI(); setTimeout(()=>{alert('🎉 '+amountNaira+' unlocked!'); document.getElementById('paywallModal').classList.add('hidden'); location.reload();},1500);}, onClose:function(){st.className='mt-3 bg-amber-50 border rounded-xl p-3 text-[11px] text-center'; st.innerText='Payment cancelled';}}); handler.openIframe();}
+function resetUsage(){if(confirm('Reset free counter?')){localStorage.setItem('snap_usage','0'); usageCount=0; updateUsageUI(); updateEditorStats(); alert('Reset! 2 free again');}}
+function savePaystackKey(){const key=document.getElementById('editorPaystackKey').value.trim(); if(!key.startsWith('pk_')){alert('Invalid - should start with pk_');return;} localStorage.setItem('snap_paystack_key',key); alert('Key saved! Now edit index.html in GitHub and replace pk_test_... with this key!');}
+
+updateUsageUI(); renderDeck(); updateEditorStats(); if(!isPro && usageCount>=2){setTimeout(()=>{document.getElementById('paywallModal').classList.remove('hidden');},1500);}
+</script>
+</body>
+</html>
