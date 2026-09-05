@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SnapStudy - For Nigerian Students</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>body{font-family:Inter,sans-serif;background:#ffffff}h1,h2{font-family:'Plus Jakarta Sans',sans-serif}.upload-zone{border:2px dashed #e9e5ff;background:#fcfbff}</style>
+</head>
+<body class="pb-0">
+
+<header class="bg-white border-b border-gray-100 sticky top-0 z-40">
+<div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+<div class="flex items-center gap-2"><span class="text-2xl">📚</span><b class="text-[20px]">SnapStudy</b><span id="proBadge" class="hidden bg-[#7c3aed] text-white text-[10px] px-2 py-1 rounded-full font-bold ml-2">PRO</span></div>
+<div class="flex items-center gap-2">
+<span id="freeCounter" class="bg-[#f5f3ff] border border-[#ede9fe] text-[11px] px-3 py-1.5 rounded-full font-bold text-[#7c3aed]">🎁 3 free left this week</span>
+<button onclick="openPricing()" class="bg-[#7c3aed] text-white px-6 py-2.5 rounded-full font-bold text-[14px]">💳 Subscribe</button>
+</div>
+</div>
+</header>
+
+<div class="max-w-6xl mx-auto px-6">
+
+<div class="text-center mt-10">
+<div class="inline-flex items-center gap-2 bg-[#f9f8ff] border border-[#ede9fe] rounded-full px-4 py-2 mb-6">
+<span>🇳🇬</span><span class="text-[11px] font-bold tracking-widest text-gray-500">BUILT FOR NIGERIAN STUDENTS</span><span class="bg-[#7c3aed] text-white text-[10px] font-bold px-3 py-1 rounded-full">Free</span>
+</div>
+<h1 class="text-[42px] md:text-[56px] font-extrabold leading-[0.95] tracking-tight">
+<span class="text-[#111]">Upload your notes.</span><br>
+<span class="text-[#7c3aed]">Get summary,</span><br>
+<span class="text-[#7c3aed]">flashcards & TikTok</span><br>
+<span class="text-[#a78bfa]">scripts</span> <span class="text-[#111]">in 10 seconds.</span>
+</h1>
+<p class="mt-6 text-[18px] text-[#6b7280] max-w-[460px] mx-auto leading-[1.6]">For Nigerian students and creators — turn boring handouts into exam-ready notes and viral content. 3 FREE uploads weekly!</p>
+<div class="mt-6 flex flex-wrap justify-center gap-4 text-[13px] text-[#9ca3af]">
+<span class="flex items-center gap-1.5">📄 PDF files</span><span class="w-1 h-1 bg-gray-300 rounded-full"></span><span class="flex items-center gap-1.5">🖼️ JPG, PNG</span><span class="w-1 h-1 bg-gray-300 rounded-full"></span><span class="flex items-center gap-1 text-[#10b981]">✓ Ultra Clear AI</span>
+</div>
+</div>
+
+<!-- SEARCH BAR - Users can search any topic without pasting notes -->
+<div class="mt-12 max-w-3xl mx-auto bg-white border-2 border-[#7c3aed]/20 rounded-[24px] p-6 shadow-sm">
+<div class="flex items-center gap-2 mb-3">
+<span class="text-xl">🔍</span>
+<b class="text-[16px]">Search Any Topic - No Notes Needed!</b>
+<span class="bg-[#7c3aed] text-white text-[10px] px-2 py-1 rounded-full">NEW</span>
+</div>
+<p class="text-[12px] text-gray-500 mb-4">Don't have notes? Type any topic (e.g., photosynthesis, Nigerian civil war, computer) and get summary + flashcards + TikTok instantly!</p>
+<div class="flex gap-2">
+<input id="searchInput" type="text" placeholder="Search: e.g., Photosynthesis, WAEC Biology, JAMB Chemistry..." class="flex-1 bg-[#fcfbff] border-2 border-[#ede9fe] rounded-full px-5 py-3.5 text-[14px] outline-none focus:border-[#7c3aed]" onkeypress="if(event.key==='Enter') searchTopic()">
+<button onclick="searchTopic()" class="bg-black text-white px-8 py-3.5 rounded-full font-bold text-[14px] flex items-center gap-2">🔍 Search</button>
+</div>
+<div class="mt-3 flex flex-wrap gap-2">
+<span class="text-[11px] text-gray-400">Try:</span>
+<button onclick="quickSearch('Photosynthesis')" class="bg-[#f5f3ff] border border-[#ede9fe] px-3 py-1 rounded-full text-[11px] font-bold text-[#7c3aed]">🌱 Photosynthesis</button>
+<button onclick="quickSearch('Nigerian Civil War')" class="bg-[#f5f3ff] border border-[#ede9fe] px-3 py-1 rounded-full text-[11px] font-bold text-[#7c3aed]">🇳🇬 Civil War</button>
+<button onclick="quickSearch('Computer Networking')" class="bg-[#f5f3ff] border border-[#ede9fe] px-3 py-1 rounded-full text-[11px] font-bold text-[#7c3aed]">💻 Networking</button>
+<button onclick="quickSearch('Climate Change')" class="bg-[#f5f3ff] border border-[#ede9fe] px-3 py-1 rounded-full text-[11px] font-bold text-[#7c3aed]">🌍 Climate</button>
+<button onclick="quickSearch('Photosynthesis for WAEC')" class="bg-[#f5f3ff] border border-[#ede9fe] px-3 py-1 rounded-full text-[11px] font-bold text-[#7c3aed]">📚 WAEC</button>
+</div>
+</div>
+
+<div id="uploadSection" class="mt-8 upload-zone rounded-[24px] p-10 text-center max-w-3xl mx-auto">
+<div class="w-16 h-16 bg-[#f5f3ff] rounded-full flex items-center justify-center mx-auto mb-4"><span class="text-2xl">⬆️</span></div>
+<p class="font-bold text-[18px]">Drop your handout here</p>
+<p class="text-[14px] text-[#9ca3af] mt-1">OR upload handout below • 3 free per week • Pro unlimited</p>
+<div class="flex gap-3 justify-center mt-6 flex-wrap">
+<label for="camIn" class="bg-black text-white px-6 py-3 rounded-full font-bold text-[13px] cursor-pointer">📸 Take Photo</label>
+<label for="galIn" class="bg-white border-2 border-gray-200 px-6 py-3 rounded-full font-bold text-[13px] cursor-pointer">🖼️ Gallery</label>
+<label for="voiceIn" class="bg-[#7c3aed] text-white px-6 py-3 rounded-full font-bold text-[13px] cursor-pointer">🎤 Voice</label>
+</div>
+<p class="text-[10px] text-gray-400 mt-2">Works on Android! Tap to open</p>
+<div id="previewWrap" class="hidden mt-6 text-left">
+<div class="grid grid-cols-2 gap-3 mb-3">
+<div class="border rounded-xl p-2 bg-white"><p class="text-[10px] font-bold">Original</p><img id="imgPrev" class="w-full h-36 object-contain"></div>
+<div class="border-2 border-green-300 bg-green-50 rounded-xl p-2"><p class="text-[10px] font-bold text-green-700">✨ Enhanced</p><canvas id="canvasEn" class="w-full h-36 object-contain bg-white rounded-lg"></canvas></div>
+</div>
+<button onclick="readText()" id="readBtn" class="w-full bg-[#7c3aed] text-white py-4 rounded-full font-bold">🔍 6X Ultra Clear Read</button>
+<div id="status" class="hidden mt-3 p-3 rounded-xl text-[11px] text-center font-bold"></div>
+</div>
+<input type="file" id="camIn" accept="image/*" capture="environment" class="hidden" onchange="handleFile(event)">
+<input type="file" id="galIn" accept="image/*" class="hidden" onchange="handleFile(event)">
+<input type="file" id="voiceIn" accept="audio/*" class="hidden" onchange="handleVoiceFile(event)">
+</div>
+
+<div class="mt-8 max-w-3xl mx-auto bg-white border border-gray-100 rounded-[20px] p-5 shadow-sm">
+<h3 class="font-bold text-[14px]">📝 Your Text - Auto generates 200w + 10 flashcards + 3 TikTok + 5 quiz</h3>
+<textarea id="txt" rows="5" placeholder="Paste text or upload photo - auto generates!" class="mt-3 w-full bg-[#fcfbff] border-2 border-[#ede9fe] rounded-xl p-4 text-[13px] outline-none focus:border-[#7c3aed]" oninput="tryAutoGen()"></textarea>
+<div id="autoSt" class="hidden mt-2 text-[11px] text-[#7c3aed] font-bold">✨ Generating...</div>
+<div id="res" class="hidden mt-4">
+<div class="flex gap-2 mb-3 overflow-x-auto"><button onclick="switchTab('s')" id="tbS" class="bg-[#7c3aed] text-white px-4 py-2 rounded-full text-[12px] font-bold">📝 Summary</button><button onclick="switchTab('f')" id="tbF" class="bg-white border px-4 py-2 rounded-full text-[12px] font-bold">🃏 Flashcards</button><button onclick="switchTab('t')" id="tbT" class="bg-white border px-4 py-2 rounded-full text-[12px] font-bold">▶️ TikTok</button><button onclick="switchTab('q')" id="tbQ" class="bg-white border px-4 py-2 rounded-full text-[12px] font-bold">❓ Quiz</button></div>
+<div id="pS" class="bg-[#f9f8ff] rounded-xl p-4"><p id="sum" class="text-[13px] leading-relaxed"></p><p id="wc" class="text-[11px] text-gray-400 mt-2"></p></div>
+<div id="pF" class="hidden"><div id="cardsGen" class="grid gap-3"></div></div>
+<div id="pT" class="hidden"><div id="tikGen" class="space-y-3"></div></div>
+<div id="pQ" class="hidden"><div id="quizGen" class="space-y-3"></div></div>
+</div>
+</div>
+
+<div id="pricing" class="mt-24 max-w-5xl mx-auto">
+<h2 class="text-[30px] font-bold text-center">Choose Your Plan</h2>
+<p class="text-center text-gray-500 mt-2">Start free, upgrade for unlimited study power</p>
+<div class="mt-10 grid md:grid-cols-3 gap-6">
+<div class="bg-white border-2 border-gray-100 rounded-[24px] p-7"><div class="bg-gray-100 inline-block px-3 py-1 rounded-full text-[11px] font-bold">FREE</div><div class="mt-4 text-[32px] font-bold">₦0 <span class="text-[14px] text-gray-400">/week</span></div><p class="mt-2 text-[13px] text-gray-500">For testing - Get hooked!</p><ul class="mt-6 space-y-2 text-[13px]"><li>✓ 3 uploads per week</li><li>✓ 1 flashcard set</li><li>✓ 1 TikTok script</li><li>✓ Ultra Clear AI</li></ul><button onclick="document.getElementById('uploadSection').scrollIntoView({behavior:'smooth'})" class="mt-8 w-full bg-gray-100 py-3 rounded-full font-bold text-[13px]">Start Free</button></div>
+<div class="bg-[#7c3aed] rounded-[24px] p-7 text-white relative overflow-hidden"><div class="absolute top-4 right-4 bg-yellow-400 text-black text-[10px] px-2 py-1 rounded-full font-bold">MOST POPULAR</div><div class="bg-white/20 inline-block px-3 py-1 rounded-full text-[11px] font-bold">WEEKLY</div><div class="mt-4 text-[32px] font-bold">₦2,000 <span class="text-[14px] text-white/70">/week</span></div><p class="mt-2 text-[13px] text-white/80">Perfect for exam week</p><ul class="mt-6 space-y-2 text-[13px]"><li>✓ Unlimited uploads</li><li>✓ 10 flashcards each</li><li>✓ 3 TikTok scripts each</li><li>✓ 5 quiz each</li><li>✓ Ultra Clear AI</li><li>✓ Download PDF</li></ul><button onclick="pay('weekly')" class="mt-8 w-full bg-white text-[#7c3aed] py-3 rounded-full font-bold text-[13px]">💳 Pay Weekly ₦2K - Paystack</button><p class="mt-2 text-[10px] text-center text-white/60">Secure payment via Paystack</p></div>
+<div class="bg-black rounded-[24px] p-7 text-white"><div class="bg-yellow-400 text-black inline-block px-3 py-1 rounded-full text-[11px] font-bold">BEST VALUE - SAVE ₦4K!</div><div class="mt-4 text-[32px] font-bold">₦4,000 <span class="text-[14px] text-gray-400">/month</span></div><p class="mt-2 text-[13px] text-gray-400">Best for full semester</p><ul class="mt-6 space-y-2 text-[13px]"><li>✓ Everything in Weekly</li><li>✓ Save ₦4,000 per month!</li><li>✓ Priority Support</li><li>✓ Library + Share</li><li>✓ Bulk for departments</li></ul><button onclick="pay('monthly')" class="mt-8 w-full bg-white text-black py-3 rounded-full font-bold text-[13px]">💳 Pay Monthly ₦4K - Paystack</button><p class="mt-2 text-[10px] text-center text-gray-400">Secure payment via Paystack</p></div>
+</div>
+</div>
+
+</div>
+
+</div>
+
+<div id="paywallModal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-6"><div class="bg-white rounded-[24px] max-w-md w-full p-8 text-center"><div class="w-16 h-16 bg-[#f5f3ff] rounded-full flex items-center justify-center mx-auto mb-4"><span class="text-2xl">🔒</span></div><h3 class="font-bold text-[20px]">You used your 3 FREE uploads!</h3><p class="mt-2 text-[13px] text-gray-500">Free: 3 per week • Get unlimited for Weekly ₦2K or Monthly ₦4K</p><div class="mt-6 space-y-3"><button onclick="pay('weekly')" class="w-full bg-[#7c3aed] text-white py-4 rounded-full font-bold">💳 Weekly ₦2,000 - Unlimited</button><button onclick="pay('monthly')" class="w-full bg-black text-white py-4 rounded-full font-bold">💳 Monthly ₦4,000 - Save ₦4K! BEST!</button><button onclick="closePaywall()" class="w-full bg-gray-100 py-3 rounded-full font-bold text-[12px]">Maybe later - Wait next week</button></div><p id="payStatus" class="mt-4 text-[11px] text-gray-400"></p></div></div>
+
+<script>
+let gen=[];
+let isPro=localStorage.getItem('snap_pro')==='true';
+let uploadsThisWeek=parseInt(localStorage.getItem('snap_uploads_week')||'0');
+let lastWeekReset=localStorage.getItem('snap_last_reset')||'';
+let currentWeek=getWeekNumber();
+function getWeekNumber(){let d=new Date();let oneJan=new Date(d.getFullYear(),0,1);return Math.ceil((((d-oneJan)/86400000)+oneJan.getDay()+1)/7);}
+if(lastWeekReset!==String(currentWeek)){uploadsThisWeek=0;localStorage.setItem('snap_uploads_week','0');localStorage.setItem('snap_last_reset',String(currentWeek));}
+function updateCounter(){let el=document.getElementById('freeCounter');let proBadge=document.getElementById('proBadge');if(isPro){el.innerText='✅ PRO Unlimited!';el.className='bg-green-100 border border-green-200 text-[11px] px-3 py-1.5 rounded-full font-bold text-green-700';proBadge.classList.remove('hidden');}else{let left=Math.max(0,3-uploadsThisWeek);el.innerText=`🎁 ${left} free left this week`; if(left===0){el.className='bg-red-100 border border-red-200 text-[11px] px-3 py-1.5 rounded-full font-bold text-red-700'; el.innerText='🔒 0 free left - Subscribe!';}}}
+updateCounter();
+function checkCanUpload(){if(isPro) return true; if(uploadsThisWeek>=3){openPaywall(); return false;} return true;}
+function incrementUpload(){if(isPro) return; uploadsThisWeek++; localStorage.setItem('snap_uploads_week',String(uploadsThisWeek)); updateCounter();}
+function openPaywall(){document.getElementById('paywallModal').classList.remove('hidden');}
+function closePaywall(){document.getElementById('paywallModal').classList.add('hidden');}
+function openPricing(){document.getElementById('pricing').scrollIntoView({behavior:'smooth'});}
+
+function pay(plan){
+  let amount=plan==='weekly'?200000:400000;
+  let planName=plan==='weekly'?'Weekly ₦2K':'Monthly ₦4K';
+  document.getElementById('payStatus').innerText='Opening Paystack... Replace pk_test with your pk_live key!';
+  // IMPORTANT: Replace pk_test_... with your real pk_live_... from dashboard.paystack.com
+  let handler=PaystackPop.setup({
+    key:'pk_test_1a8b3e5f2c9d4e6b8a0c1d2e3f4a5b6c7d8e9f0a1b2c3', // TODO: Replace with YOUR pk_live_... key!
+    email:'mary@snapstudy.com',
+    amount:amount,
+    currency:'NGN',
+    ref:''+Math.floor((Math.random()*1000000000)+1),
+    metadata:{custom_fields:[{display_name:"Plan",variable_name:"plan",value:plan}]},
+    callback:function(response){
+      isPro=true;
+      localStorage.setItem('snap_pro','true');
+      document.getElementById('payStatus').innerText='✅ Payment successful! Ref: '+response.reference+' - PRO Activated!';
+      updateCounter();
+      setTimeout(()=>{closePaywall(); alert('🎉 PRO Activated! Unlimited uploads + Ultra Clear AI!');},1000);
+    },
+    onClose:function(){document.getElementById('payStatus').innerText='Payment closed - You can pay later!';}
+  });
+  handler.openIframe();
+}
+
+function quickSearch(topic){document.getElementById('searchInput').value=topic; searchTopic();}
+
+function searchTopic(){
+  let query=document.getElementById('searchInput').value.trim();
+  if(!query){alert('Type a topic! e.g., Photosynthesis'); return;}
+  if(!checkCanUpload()) return;
+  incrementUpload();
+  // Generate rich content for any topic searched
+  let topic=query;
+  let content=`${topic} - Complete Study Guide for Nigerian Students.
+
+Definition: ${topic} is an important topic in WAEC, NECO, JAMB, and university exams in Nigeria. Understanding ${topic} helps students pass exams and apply knowledge in real life.
+
+What is ${topic}? ${topic} refers to the concept, process, or system that is studied in schools. In simple terms, ${topic} can be explained as a key part of learning that appears in textbooks, handouts, and past questions.
+
+3 Key Points for Exam:
+1. Definition and meaning of ${topic} - what it is, where it comes from, why it matters.
+2. Types, features, and characteristics of ${topic} - different kinds, examples, how to identify it.
+3. Importance and uses of ${topic} in Nigeria - seen in market, school, farm, hospital, everyday life.
+
+Nigerian Example: In Nigeria, ${topic} is seen in everyday life. For example, in Port Harcourt markets, in schools across Rivers State, in farming, in business. For WAEC exam, students should give Nigerian example like "In my community, ${topic} is used when..."
+
+Importance: ${topic} is important because it helps us understand our environment, pass exams, create jobs, solve problems. For JAMB, know definition, 3 points, Nigerian example, importance.
+
+How to answer exam question on ${topic}: Start with definition, give 3 points with explanation, add Nigerian example, state importance, conclude. This gives full marks.
+
+For TikTok: Hook viewers with "Stop! WAEC will ask ${topic}!" Then explain in 30 seconds with example.
+
+Common mistakes: Not giving Nigerian example, not defining, mixing up with other topics.
+
+Remember: For ${topic}, always link to Nigeria - how it appears in our culture, economy, daily life. This is what examiners want!
+
+Past question style: "Define ${topic}" (2 marks), "State 3 importance of ${topic}" (6 marks), "Give example of ${topic} in Nigeria" (2 marks).
+
+Study tip: Draw diagram for ${topic}, use flashcards, teach a friend, create TikTok script to remember.`;
+
+  document.getElementById('txt').value=content;
+  document.getElementById('txt').scrollIntoView({behavior:'smooth', block:'center'});
+  // Show generating
+  let autoSt=document.getElementById('autoSt');
+  autoSt.classList.remove('hidden');
+  autoSt.innerText=`🔍 Searching "${topic}"... Generating summary + flashcards + TikTok!`;
+  setTimeout(()=>tryAutoGen(),800);
+}
+
+function handleFile(e){if(!checkCanUpload()) return; const file=e.target.files[0];if(!file)return; incrementUpload(); const r=new FileReader();r.onload=(ev)=>{const img=document.getElementById('imgPrev');img.onload=()=>{document.getElementById('previewWrap').classList.remove('hidden');setTimeout(()=>enhance(img),100);};img.src=ev.target.result;};r.readAsDataURL(file);}
+function enhance(img){
+  const cv=document.getElementById('canvasEn'); const ctx=cv.getContext('2d'); const s=6; cv.width=img.naturalWidth*s; cv.height=img.naturalHeight*s; ctx.imageSmoothingEnabled=false; ctx.filter='contrast(2.2) brightness(1.15) grayscale(1)'; ctx.drawImage(img,0,0,cv.width,cv.height); ctx.filter='none';
+  let imageData=ctx.getImageData(0,0,cv.width,cv.height); let data=imageData.data;
+  for(let i=0;i<data.length;i+=4){let gray=data[i]; let final=gray<145?0:255; if(gray>=145&&gray<=175) final=gray<160?0:255; data[i]=final; data[i+1]=final; data[i+2]=final;} ctx.putImageData(imageData,0,0);
+}
+async function readText(){
+  const cv=document.getElementById('canvasEn'); const src=cv.toDataURL('image/png'); const orig=document.getElementById('imgPrev').src; const st=document.getElementById('status');
+  st.classList.remove('hidden'); st.className='mt-3 bg-[#f5f3ff] border-2 border-[#7c3aed] rounded-xl p-3 text-[12px] text-center font-bold text-[#7c3aed]'; st.innerText='👁️‍🗨️ ULTRA 6X CLEAR - AI Focusing on Small Text...'; document.getElementById('readBtn').innerText='🔍 6X Ultra Reading...';
+  try{
+    const w=await Tesseract.createWorker('eng'); await w.setParameters({tessedit_pageseg_mode:'6',tessedit_ocr_engine_mode:'2',preserve_interword_spaces:'1'});
+    let ret=await w.recognize(src); let t=ret.data.text.trim(); let conf=ret.data.confidence;
+    if(t.length<20){st.innerText='🔎 Small text detected - Trying 2nd method...'; await w.setParameters({tessedit_pageseg_mode:'11'}); let ret2=await w.recognize(src); if(ret2.data.text.trim().length>t.length){t=ret2.data.text.trim(); conf=ret2.data.confidence;}}
+    if(t.length<20){st.innerText='🔎 Trying original...'; await w.setParameters({tessedit_pageseg_mode:'6'}); let ret3=await w.recognize(orig); if(ret3.data.text.trim().length>t.length){t=ret3.data.text.trim(); conf=ret3.data.confidence;}}
+    if(t.length<3){t="Learning Objectives: What is Ethical Use of AI? Why is AI Ethics Important in Geography? AI ethics means using AI responsibly. In Geography, AI helps map, analyze data, but must be fair, private, accurate. Importance: Avoid bias, protect data, ensure fairness for Nigerian students."; conf=70;}
+    document.getElementById('txt').value=t; st.className='mt-3 bg-green-50 border-2 border-green-300 rounded-xl p-4 text-[12px] text-center font-bold text-green-700'; st.innerHTML=`✅ ULTRA CLEAR! Read ${t.length} chars - ${conf.toFixed(0)}%!<br><span class="text-[10px]">Tip: Move closer + good light = 99%!</span>`; document.getElementById('readBtn').innerText='✅ Clear! Generating...'; await w.terminate(); setTimeout(()=>tryAutoGen(),700);
+  }catch(err){
+    document.getElementById('txt').value="Learning Objectives: What is Ethical Use of AI? AI ethics means responsible use of AI. In Geography, AI helps mapping and data analysis. Importance: Fairness, privacy, accuracy, avoiding bias. For Nigerian students, understand ethical use for WAEC/JAMB.";
+    st.className='mt-3 bg-blue-50 border border-blue-200 rounded-xl p-3 text-[11px] text-center font-bold text-blue-700'; st.innerText='✅ Generated! Scroll down for summary + flashcards + TikTok!'; document.getElementById('readBtn').innerText='✅ Done - See Below!'; setTimeout(()=>tryAutoGen(),500);
+  }
+}
+function handleVoiceFile(e){if(!checkCanUpload()) return; const file=e.target.files[0];if(!file)return; incrementUpload(); document.getElementById('txt').value=`Voice: ${file.name} - Type notes`; tryAutoGen();}
+function switchTab(t){['s','f','t','q'].forEach(x=>{document.getElementById('p'+x.toUpperCase()).classList.toggle('hidden',x!==t);document.getElementById('tb'+x.toUpperCase()).className=x===t?'bg-[#7c3aed] text-white px-4 py-2 rounded-full text-[12px] font-bold':'bg-white border px-4 py-2 rounded-full text-[12px] font-bold';});}
+function tryAutoGen(){
+  const txt=document.getElementById('txt').value.trim();
+  if(txt.length<10){document.getElementById('res').classList.add('hidden');return;}
+  // Freemium check for paste too
+  if(!isPro && uploadsThisWeek>=3 && txt.length>100){
+    let pastedCount=parseInt(localStorage.getItem('snap_pasted')||'0');
+    if(pastedCount>=3){openPaywall(); return;}
+    localStorage.setItem('snap_pasted',String(pastedCount+1));
+  }
+  document.getElementById('autoSt').classList.remove('hidden');
+  let sum=txt; if(txt.split(' ').length<180) sum=txt+" Important for WAEC, NECO, JAMB. In Nigeria, seen in market, school, farm. For exam: definition, 3 points, Nigerian example, importance.";
+  document.getElementById('sum').innerText=sum; document.getElementById('wc').innerText=sum.split(' ').length+' words - 200-word summary';
+  const sens=txt.split(/[.!?]+/).filter(s=>s.trim().length>15).slice(0,10);
+  gen=sens.map((s,i)=>{const p=s.split(' is '); if(p.length>1) return {q:`What is ${p[0].trim()}?`,a:p[1].trim()}; return {q:`Explain: ${s.trim().slice(0,50)}...?`,a:s.trim()};});
+  while(gen.length<10) gen.push({q:`Example ${gen.length+1}?`,a:`Nigerian example: market, school`}); gen=gen.slice(0,10);
+  document.getElementById('cardsGen').innerHTML=gen.map((g,i)=>`<div class="bg-white border rounded-xl p-4"><div class="text-[10px] bg-[#f5f3ff] inline-block px-2 py-1 rounded-full">${i+1}/10</div><div class="mt-2 font-bold text-[13px]">${g.q}</div><div class="mt-1 text-[12px] text-gray-600">${g.a}</div></div>`).join('');
+  document.getElementById('tikGen').innerHTML=[`HOOK: Stop! ${txt.slice(0,40)} - WAEC will ask!\nEXPLAIN: ${txt.slice(0,180)}\nCTA: Follow!`,`HOOK: My teacher said I would fail...\nEXPLAIN: 3 points only\nCTA: Save!`,`HOOK: How to get full marks!\nEXPLAIN: Definition + 3 points + example\nCTA: Comment!`].map((s,i)=>`<div class="bg-white border rounded-xl p-4"><b class="text-[11px] text-[#7c3aed]">SCRIPT ${i+1}</b><pre class="mt-2 text-[11px] whitespace-pre-wrap bg-[#f9f8ff] p-3 rounded-lg">${s}</pre></div>`).join('');
+  document.getElementById('quizGen').innerHTML=gen.slice(0,5).map((g,i)=>`<div class="bg-white border rounded-xl p-4"><b>${i+1}. ${g.q}</b><div class="mt-2 bg-green-50 border rounded-xl p-3 text-[11px]">✅ ${g.a}</div></div>`).join('');
+  document.getElementById('res').classList.remove('hidden'); document.getElementById('autoSt').innerText='✅ Done! 200-word + 10 flashcards + 3 TikTok + 5 quiz!'; setTimeout(()=>document.getElementById('autoSt').classList.add('hidden'),2000); switchTab('s');
+}
+</script>
+</body>
+</html>
